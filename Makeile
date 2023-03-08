@@ -6,16 +6,15 @@
 #    By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 04:04:08 by yismaail          #+#    #+#              #
-#    Updated: 2023/03/06 04:04:10 by yismaail         ###   ########.fr        #
+#    Updated: 2023/03/07 23:01:59 by yismaail         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	so_long
+NAME		=	minishell
 CC			=	cc
 CFLAGS		=	-Werror -Wextra -Wall 
 RM			=	rm -rf
-SRCS		=	src_s/main.c src_s/check_error.c src_s/check_error2.c \
-				src_s/check_error3.c src_s/button.c src_s/move.c src_s/show_map.c \
+SRCS		=	
 				
 OBJS		= ${SRCS:.c=.o}
 
@@ -23,7 +22,7 @@ all			:	$(NAME)
 
 $(NAME)		: $(OBJS)
 			make -C libft
-			$(CC) $(OBJS) libft/libft.a -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+			$(CC) $(OBJS) LIBFT42/libft.a -o $(NAME)
 			
 clean		:
 			$(RM) $(OBJS)
