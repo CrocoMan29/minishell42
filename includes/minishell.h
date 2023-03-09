@@ -6,12 +6,16 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/08 02:28:29 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/09 02:48:24 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
+
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 typedef struct s_token
 {
