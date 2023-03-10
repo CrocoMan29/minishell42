@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/10 02:25:05 by yismaail         ###   ########.fr       */
+/*   Created: 2023/03/07 17:29:22 by yismaail          #+#    #+#             */
+/*   Updated: 2023/03/09 22:36:50 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "libft.h"
 
-void	ft_minishell(char **env)
+void    ft_lstadd_front(t_list **lst, t_list *new)
 {
-	char	*line;
-
-	
-	while (1)
-	{
-		line = readline("minishell> ");
-		get_token(line);
-		
-	}
-}
-
-int	main(int ac, char **av, char **env)
-{
-	if (ac != 1)
-		return (0);
-	ft_minishell(env);
+    if (!new)
+        return ;
+    if (!lst)
+    {
+        *lst = new;
+        return ;
+    }
+    new->next = *lst;
+    *lst = new;
 }

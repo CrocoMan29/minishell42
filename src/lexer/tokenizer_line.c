@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   tokenizer_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/07 17:32:11 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/07 17:32:33 by yismaail         ###   ########.fr       */
+/*   Created: 2023/03/10 02:25:44 by yismaail          #+#    #+#             */
+/*   Updated: 2023/03/10 03:50:30 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-void    ft_lstadd_back(t_list **lst, t_list *new)
+void	tokenize_line(t_expre *expre, char c)
 {
-    t_list *last;
-    if (!new)
-        return (NULL);
-    if (!*lst)
-    {
-        *lst = new;
-        return ;
-    }
-    last = ft_lstlast(*lst);
-    last->next = new;
+	if (c = ' ' || c = '\t' || c = '')
+}
+
+void	get_token(char *line)
+{
+	t_var	*var;
+	t_expre *expre;
+
+	var->i = 0;
+	while (line[var->i])
+	{
+		tokenize_line(&expre, line[var->i])
+	}
 }
