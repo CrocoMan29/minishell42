@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/10 02:25:05 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/11 04:50:05 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_minishell(char **env)
 {
 	char	*line;
 
-	
+	line = NULL;
 	while (1)
 	{
 		line = readline("minishell> ");
