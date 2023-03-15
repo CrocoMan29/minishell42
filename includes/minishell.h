@@ -6,46 +6,82 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/10 02:47:37 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/15 07:29:44 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "../libft/libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <limits.h>
+# include <signal.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "../libft/libft.h"
+
+int	g_exit_status
+
+typedef struct s_lexer
+{
+	
+}		t_lexer;
 
 typedef struct s_token
 {
-	int	type;
+	int		type;
 	char	*value;
+	struct s_token *next;
 }		t_token;
 
-typedef struct s_expre
+
+/*
+
+typedef struct lexer
 {
-	char	*str;
-	struct s_expre *next;
-	struct t_token *token;
-}	t_expre;
+	char	c;
+	int		i;
+	char	*value;
+}			lexer;
 
-typedef struct s_var
+typedef struct tokens
 {
-	int	i;
-	int j;
-}		t_var;
+	enam{
+		
+	}l;
+	char *p;
+}		tokens;
 
-enum {
-	TOKEN_WORD,
-	TOKEN_CMD,
-	TOKEN_INFILE,
-	TOKEN_OUTFILE,
-	TOKEN_REDIR,
-};
+typedef struct parser
+{
+	int		type;
+	char	*value;
+	struct t_token *next;
+}		parser;
 
-void	ft_minishell(char **env);
-void	get_token(char *line);
+typedef struct t_redi
+{
+	enam{
+		1,in
+		2,out
+		3,append
+		4,herdoc
+	}l;
+	char *filename;
+	int fd;
+	struct t_redi *next;
+}		t_redi;
+
+typedef struct data
+{
+	char	**value;
+	t_redi	*redi;
+	struct t_token *next;
+	int	in_out[2];
+}		data;
+
+*/
 
 #endif
