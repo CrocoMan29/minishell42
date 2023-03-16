@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/15 07:34:07 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/16 07:09:28 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,17 @@ void	check_args(int ac, char **av)
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
+	t_token	*token;
 	
 	line = NULL;
 	check_args(ac, av);
 	while (1)
 	{
+		token = NULL;
 		line = readline("minishell>");
 		if (!line)
 			exit(1);
-		token_line(line, )
+		if (token_line(line, &token))
+			printf("yassir ja lehna");
 	}
 }

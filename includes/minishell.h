@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/15 07:29:44 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/16 09:10:46 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ typedef struct s_token
 	struct s_token *next;
 }		t_token;
 
+enum {
+	WORD,
+	PIPE,
+	FILEIN,
+	FILEOUT,
+	OPERATOR,
+}
 
 /*
 
