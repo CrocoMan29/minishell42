@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/16 07:09:28 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/17 05:40:24 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int ac, char **av, char **env)
 	t_token	*token;
 	
 	line = NULL;
+	(void)env;
 	check_args(ac, av);
 	while (1)
 	{
@@ -36,6 +37,6 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 			exit(1);
 		if (token_line(line, &token))
-			printf("yassir ja lehna");
+			printf("%s\n", token->content);
 	}
 }

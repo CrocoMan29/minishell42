@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/16 09:10:46 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/17 05:36:34 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-int	g_exit_status
+int	g_exit_status;
 
 typedef struct s_lexer
 {
@@ -32,7 +32,7 @@ typedef struct s_lexer
 typedef struct s_token
 {
 	int		type;
-	char	*value;
+	char	*content;
 	struct s_token *next;
 }		t_token;
 
@@ -42,7 +42,7 @@ enum {
 	FILEIN,
 	FILEOUT,
 	OPERATOR,
-}
+};
 
 /*
 
@@ -90,5 +90,17 @@ typedef struct data
 }		data;
 
 */
+
+//*----------LEXER----------*//
+int	token_line(char *line, t_token **token);
+int	take_separator(char *line, t_token **token);
+int	whish_separator(char *line);
+void	check_args(int ac, char **av);
+
+
+//*---------lst_func--------*//
+t_token  *ft_lstnew_m(char *content);
+t_token  *ft_lstlast_m(t_token *lst);
+void    ft_lstadd_back_m(t_token **lst, t_token *new);
 
 #endif
