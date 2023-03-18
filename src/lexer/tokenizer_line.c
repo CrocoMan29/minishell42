@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 02:25:44 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/17 11:29:41 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/18 17:08:00 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,57 @@ int	take_separator(char *line, t_token **token)
 	
 }
 
+// int	take_word(char *line, t_token **token, int *flag)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (line[i] == '\'' || line[i] == '\"')
+// 		return ()
+// }
+
+int	with_quotes(char *line, t_token **token, int flag)
+{
+	int	i;
+
+	i = 0;
+	if (line[i])
+	{
+		if (line[i] == '\'')
+		{
+			i++;
+			while (line[i] != '\'' || line[i] != '\"')
+				i++;
+			if (line[i] == '\'')
+				ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i)));
+			else
+				exit(1);
+		}
+		else if (line[i] == '\"')
+		{
+			i++;
+			while (line[i] != '\'' || line[i] != '\"')
+				i++;
+			if (line[i] == '\"')
+				ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i)));
+			else
+				exit(1);
+		}
+	}
+	return (i);
+}
+
 int	take_word(char *line, t_token **token, int *flag)
 {
 	int	i;
 
 	i = 0;
-	if (line[i] == '\'' || line[i] == '\"')
-		return ()
+	if (*line == '\'' || *line == '\"')
+		return (with_quotes(line, token, *flag));
+	while (line[i] && !whish_separator(line + i))
+		i++;
+	ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i)));
+	return (i);
 }
 
 int	token_line(char *line, t_token **token)
@@ -67,7 +111,9 @@ int	token_line(char *line, t_token **token)
 	while (line[i])
 	{
 		i += take_separator(line + i, token);
-		i += take_word(line + i, token, &flag)
+		i += take_word(line + i, token, &flag);
+		if (flag == 0)
+			return (0);
 		i++;
 	}
 	
