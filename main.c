@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/17 05:40:24 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:22:52 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 			exit(1);
 		if (token_line(line, &token))
-			printf("%s\n", token->content);
+		{
+			int c = 6;
+			while (c > 0)
+			{
+				printf ("%s\n", token->content);
+				token = token->next;
+			}
+		}
 	}
 }

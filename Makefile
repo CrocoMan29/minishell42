@@ -6,7 +6,7 @@
 #    By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 04:04:08 by yismaail          #+#    #+#              #
-#    Updated: 2023/03/17 05:27:13 by yismaail         ###   ########.fr        #
+#    Updated: 2023/03/20 15:18:20 by yismaail         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ all			:	$(NAME)
 
 $(NAME)		: $(SRCS)
 			make -C libft
-			$(CC) $(CFLAGS) $(SRCS) libft/libft.a -o $(NAME)
+			$(CC) $(CFLAGS) -fsanitize=address -g $(SRCS) libft/libft.a -o $(NAME)
 			
 clean		:
 			$(RM) $(OBJS)

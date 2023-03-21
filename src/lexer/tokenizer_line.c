@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 02:25:44 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/18 17:08:00 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:20:05 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,24 @@ int	with_quotes(char *line, t_token **token, int flag)
 			if (line[i] == '\'')
 				ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i)));
 			else
-				exit(1);
+			{
+				flag = 0;
+				return (flag);
+			}
 		}
 		else if (line[i] == '\"')
 		{
 			i++;
-			while (line[i] != '\'' || line[i] != '\"')
+			while (line[i] && (line[i] != '\'' || line[i] != '\"'))
 				i++;
+			printf ("FIRST i => %d \n", i);
 			if (line[i] == '\"')
 				ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i)));
 			else
-				exit(1);
+			{
+				flag = 0;
+				return (flag);	
+			}
 		}
 	}
 	return (i);
