@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 05:16:07 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/17 05:33:50 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/23 14:31:31 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_token  *ft_lstnew_m(char *content)
     if (!new)
         return (NULL);
     new->content = content;
+	new->type = type_token(content);
     new->next = NULL;
     return (new);
 }

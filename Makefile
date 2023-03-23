@@ -6,13 +6,13 @@
 #    By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 04:04:08 by yismaail          #+#    #+#              #
-#    Updated: 2023/03/20 15:18:20 by yismaail         ###   ########.fr        #
+#    Updated: 2023/03/22 12:32:30 by yismaail         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
 CC			=	cc
-CFLAGS		=	-Werror -Wextra -Wall -lreadline
+CFLAGS		=	-Werror -Wextra -Wall 
 RM			=	rm -rf
 SRCS		=	main.c  src/lexer/tokenizer_line.c src/lst_func/lst_addback_m.c
 				
@@ -22,7 +22,7 @@ all			:	$(NAME)
 
 $(NAME)		: $(SRCS)
 			make -C libft
-			$(CC) $(CFLAGS) -fsanitize=address -g $(SRCS) libft/libft.a -o $(NAME)
+			$(CC) $(CFLAGS) $(SRCS) libft/libft.a -o $(NAME) -lreadline 
 			
 clean		:
 			$(RM) $(OBJS)

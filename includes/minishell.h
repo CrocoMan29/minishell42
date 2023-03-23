@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/20 15:07:42 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/23 14:29:10 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-int	g_exit_status;
+//int	g_exit_status;
 
 typedef struct s_lexer
 {
@@ -39,8 +39,8 @@ typedef struct s_token
 enum {
 	WORD,
 	PIPE,
-	FILEIN,
-	FILEOUT,
+	DOUBLE,
+	SINGLE,
 	OPERATOR,
 };
 
@@ -96,8 +96,9 @@ int	token_line(char *line, t_token **token);
 int	take_separator(char *line, t_token **token);
 int	whish_separator(char *line);
 void	check_args(int ac, char **av);
-int	with_quotes(char *line, t_token **token, int flag);
+int	with_quotes(char *line, t_token **token, int c, int *flag);
 int	take_word(char *line, t_token **token, int *flag);
+int	type_token(char *content);
 
 
 //*---------lst_func--------*//

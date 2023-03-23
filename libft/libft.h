@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 23:02:17 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/07 17:35:10 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/22 10:09:50 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include<stdlib.h>
 # include<string.h>
 # include<unistd.h>
+# include <stdint.h>
 
 typedef struct s_list
 {

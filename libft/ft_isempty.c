@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 04:03:48 by yismaail          #+#    #+#             */
-/*   Updated: 2023/02/06 20:33:04 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/22 10:10:49 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	ft_isempty(char *str)
 {
-	int	i;
-
-	i = 0;
 	if (ft_isspace(str) == 1)
 		return (1);
 	return (0);
