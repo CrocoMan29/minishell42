@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/23 14:29:10 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/30 00:09:59 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,39 @@
 # include "../libft/libft.h"
 
 //int	g_exit_status;
+char	**g_env;
 
 typedef struct s_lexer
 {
 	
 }		t_lexer;
 
+typedef struct s_redi
+{
+	enum {
+		in,
+		out,
+		append,
+		herdoc,
+	}redir;
+	char			*file;
+	struct s_redi	*next;
+}					t_redi;
+
 typedef struct s_token
 {
 	int		type;
 	char	*content;
+	int		expand;
 	struct s_token *next;
 }		t_token;
+
+typedef struct s_env
+{
+	char	*key;
+	char	*value;
+	struct s_env	*next;
+}					t_env;
 
 enum {
 	WORD,
