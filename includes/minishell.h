@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/30 00:09:59 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/03/31 02:44:50 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ typedef struct data
 int	token_line(char *line, t_token **token);
 int	take_separator(char *line, t_token **token);
 int	whish_separator(char *line);
-void	check_args(int ac, char **av);
+void	check_args(int ac, char **av, t_env **dup_env, char **env);
 int	with_quotes(char *line, t_token **token, int c, int *flag);
 int	take_word(char *line, t_token **token, int *flag);
 int	type_token(char *content);
@@ -126,5 +126,12 @@ int	type_token(char *content);
 t_token  *ft_lstnew_m(char *content);
 t_token  *ft_lstlast_m(t_token *lst);
 void    ft_lstadd_back_m(t_token **lst, t_token *new);
+t_env  *ft_lstnew_env(char *key, char *value);
+t_env  *ft_lstlast_env(t_env *lst);
+void    ft_lstadd_back_env(t_env **lst, t_env *new);
 
+
+//*---------env--------*//
+void	*parse_env(char **env, t_env **dup_env);
+int	get_idx_of(char *str, int c);
 #endif
