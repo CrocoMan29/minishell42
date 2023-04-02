@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 02:25:44 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/23 15:16:52 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/02 05:01:36 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ int	type_token(char *content)
 		return (OPERATOR);
 	if (*content == '<' || *content == '>')
 		return (OPERATOR);
+	if (*content == '~' && ft_strlen(content) == 1)
+		return (HYPHEN);
+	if (*content == ' ')
+		return (SPACE);
 	else
 		return (WORD);
 }

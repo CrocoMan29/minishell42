@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/01 01:28:03 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/02 06:31:27 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,9 @@ void	check_args(int ac, char **av, t_env **dup_env, char **env)
 	parse_env(env, dup_env);
 }
 
-// void	minishell(char **env,t_env **dup_env)
+// void	ft_minishell(t_env **env, t_token **token)
 // {
-// 	int i;
-	
-// 	i = 0;
-// 	while (env[i])
-// 		i++;
-// 	g_env = (char **)malloc((char *) * (i + 1));
-// 	i = -1;
-// 	while (env[i++])
-// 		g_env[i] = env[i];
-// 	g_env[i] = NULL;
+	 
 // }
 
 int	main(int ac, char **av, char **env)
@@ -50,17 +41,27 @@ int	main(int ac, char **av, char **env)
 	check_args(ac, av, &dup_env, env);
 	while (1)
 	{
-		
-		
 		line = readline("minishell>");
 		if (!line)
 			exit(1);
-		 add_history(line);
+		add_history(line);
 		if (token_line(line, &token))
 		{
-			// printf("%s=", dup_env->key);
-			// printf("%s\n", dup_env->value);
-			// dup_env = dup_env->next;
+			// ft_minishell(&dup_env, &token)
+			while (token)
+			{
+				printf("--|%d|--", token->type);
+				token = token->next;
+			}
+			// if (ft_strncmp(line, "env", 3) == 0)
+			// {
+			// 	while (dup_env)
+			// 	{
+			// 		printf("%s=", dup_env->key);
+			// 		printf("%s\n", dup_env->value);
+			// 		dup_env = dup_env->next;
+			// 	}
+			
 			// if (!dup_env->next)
 			// 	return (0);
 			// printf("%s\n", dup_env->key);

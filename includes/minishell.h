@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/31 02:44:50 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/02 06:30:57 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,13 @@ typedef struct s_env
 }					t_env;
 
 enum {
-	WORD,
-	PIPE,
-	DOUBLE,
-	SINGLE,
-	OPERATOR,
+	WORD,//0
+	PIPE,//1
+	DOUBLE,//2
+	SINGLE,//3
+	OPERATOR,//4
+	HYPHEN,//5
+	SPACE,//6
 };
 
 /*
