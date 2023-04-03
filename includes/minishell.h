@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/02 06:30:57 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/03 05:29:50 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,4 +136,9 @@ void    ft_lstadd_back_env(t_env **lst, t_env *new);
 //*---------env--------*//
 void	*parse_env(char **env, t_env **dup_env);
 int	get_idx_of(char *str, int c);
+
+//*---------expand--------*//
+void	handler_expand(t_token **token, t_env *env);
+void	trim_quotes(t_token *token);
+void	ft_minishell(t_env **env, t_token **token);
 #endif

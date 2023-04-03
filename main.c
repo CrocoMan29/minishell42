@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/02 06:31:27 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/03 05:26:32 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	check_args(int ac, char **av, t_env **dup_env, char **env)
 	parse_env(env, dup_env);
 }
 
-// void	ft_minishell(t_env **env, t_token **token)
-// {
-	 
-// }
+void	ft_minishell(t_env **env, t_token **token)
+{
+	handler_expand(token, *env);
+}
 
 int	main(int ac, char **av, char **env)
 {
@@ -47,12 +47,13 @@ int	main(int ac, char **av, char **env)
 		add_history(line);
 		if (token_line(line, &token))
 		{
-			// ft_minishell(&dup_env, &token)
-			while (token)
-			{
-				printf("--|%d|--", token->type);
-				token = token->next;
-			}
+			ft_minishell(&dup_env, &token);
+			// while (token)
+			// {
+			// 	printf("--|%d|--", token->type);
+			// 	token = token->next;
+			// }
+			// printf("\n");
 			// if (ft_strncmp(line, "env", 3) == 0)
 			// {
 			// 	while (dup_env)
