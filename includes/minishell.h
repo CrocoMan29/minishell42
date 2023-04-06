@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/03 05:29:50 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:45:58 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ int	type_token(char *content);
 t_token  *ft_lstnew_m(char *content);
 t_token  *ft_lstlast_m(t_token *lst);
 void    ft_lstadd_back_m(t_token **lst, t_token *new);
+void	ft_lstdelone_t(t_token *lst);
+void	ft_lstclear_t(t_token **lst);
 t_env  *ft_lstnew_env(char *key, char *value);
 t_env  *ft_lstlast_env(t_env *lst);
 void    ft_lstadd_back_env(t_env **lst, t_env *new);
@@ -138,7 +140,8 @@ void	*parse_env(char **env, t_env **dup_env);
 int	get_idx_of(char *str, int c);
 
 //*---------expand--------*//
-void	handler_expand(t_token **token, t_env *env);
-void	trim_quotes(t_token *token);
 void	ft_minishell(t_env **env, t_token **token);
+void	handler_expand(t_token **token, t_env *env, t_token *tok);
+void	trim_quotes(t_token *token);
+void	check_exp(t_token *tok, t_env *env);
 #endif

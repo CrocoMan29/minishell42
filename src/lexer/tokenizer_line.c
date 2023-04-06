@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 02:25:44 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/03 00:33:26 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:30:22 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	token_line(char *line, t_token **token)
 		i += take_word(line + i, token, &flag);
 		if (!flag)
 		{
+			ft_lstclear_t(token);
 			write(2, "token line error", 16);
 			return (0);
 		}

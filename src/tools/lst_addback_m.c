@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 05:16:07 by yismaail          #+#    #+#             */
-/*   Updated: 2023/03/27 14:14:34 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:45:11 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,31 @@ void    ft_lstadd_back_m(t_token **lst, t_token *new)
     }
     last = ft_lstlast_m(*lst);
     last->next = new;
+}
+
+void	ft_lstdelone_t(t_token *lst)
+{
+	if (lst)
+	{
+		if (lst->content)
+			free(lst->content);
+		free(lst);
+	}
+}
+
+void	ft_lstclear_t(t_token **lst)
+{
+	t_token *tmp;
+	t_token	*p;
+
+	if (!lst)
+		return ;
+	p = *lst;
+	while (p)
+	{
+		tmp = p->next;
+		ft_lstdelone_t(p);
+		p = tmp;
+	}
+	*lst = NULL;
 }
