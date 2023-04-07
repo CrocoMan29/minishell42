@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/05 16:45:58 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/07 00:13:37 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,6 @@ void	ft_minishell(t_env **env, t_token **token);
 void	handler_expand(t_token **token, t_env *env, t_token *tok);
 void	trim_quotes(t_token *token);
 void	check_exp(t_token *tok, t_env *env);
+void	hyphen_exp(t_token *tok, t_env *env);
+char	*get_value_of_exp(t_env *env, char *key);
 #endif
