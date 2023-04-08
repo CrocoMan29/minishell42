@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:54:37 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/07 09:26:12 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/08 06:45:19 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	trim_quotes(t_token *token)
 	t_token *temp;
 	temp = token;
 
-	//TODOfree previous token
 	while (token)
 	{
+	//TODOfree previous token
+	printf("%d\n",token->type);
 		tmp = token->content;
 		if (!*tmp)
 		{
@@ -40,14 +41,6 @@ void	trim_quotes(t_token *token)
 		}
 		token = token->next;
 	}
-	// // printf("\n");
-	// while (temp)
-	// {
-	// 	printf("-|%s|-", temp->content);
-	// 	temp = temp->next;
-	// }
-	// printf("\n");
-	// printf("HELLO\n");
 }
 
 char	*get_value_of_exp(t_env *env, char *key)
@@ -117,11 +110,12 @@ void	expand_var(t_env *env, char **content)
 	str = NULL;
 	str1 = NULL;
 	join = NULL;
+	last_str = NULL;
 	prev = *content;
 	i = 0;
 	while (prev[i] && !exp_here(prev[i], prev[i + 1]))
 		i++;
-	if (!prev[i] && prev[i + 1])
+	if (!prev[i])
 		return ;
 	if (i)
 		str = ft_substr(prev, 0, i);
@@ -130,14 +124,20 @@ void	expand_var(t_env *env, char **content)
 	// printf ("%d\n", j);
 	join = ft_strjoin(str, str1);
 	if (ft_strlen(prev + j))
-		last_str = ft_substr(prev, j, ft_strlen(prev + j))
+		last_str = ft_substr(prev, j, ft_strlen(prev + j));
 	*content = ft_strjoin(join, last_str);
-	free(str);
+	// printf ("%s\n", *content);
+	// if (!last_str)
+	// 	free(join);
+	if (last_str)
+		free(last_str);
 	free(str1);
-	free(join);
-	free(last_str);
-	expand_var(env, content);
-	
+	free(prev);
+	// free(str);
+	// free(str1);
+	// free(join);
+	// free(last_str);
+	// expand_var(env, content);
 }
 
 void	check_exp(t_token *tok, t_env *env)
@@ -153,13 +153,11 @@ void	check_exp(t_token *tok, t_env *env)
 	{
 		if (*(tok->content) == '$')
 			tok->expand = 1;
+		// printf ("%s", tok->content);
 		expand_var(env, &tok->content);
+		// printf ("643135454");
+		// printf ("Yassir\n");
 	}
-	// if (*(tok->content) == '$')
-	// {
-	// 	printf("%c\n", *(tok->content));
-	// 	printf("oki\n");
-	// }
 }
 
 void	handler_expand(t_token **token, t_env *env, t_token *tok)

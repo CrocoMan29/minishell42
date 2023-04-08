@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/06 01:28:00 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/08 06:44:14 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 			exit(1);
 		add_history(line);
+		// free(line);
 		if (token_line(line, &token))
 		{
 			ft_minishell(&dup_env, &token);
@@ -79,6 +80,5 @@ int	main(int ac, char **av, char **env)
 			// 	dup_env = dup_env->next;
 			// }
 		}
-		free(line);
 	}
 }
