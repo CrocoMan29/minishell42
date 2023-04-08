@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:54:37 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/08 06:45:19 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/08 07:40:23 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	trim_quotes(t_token *token)
 	t_token *temp;
 	temp = token;
 
+	// //TODOfree previous token
 	while (token)
 	{
-	//TODOfree previous token
-	printf("%d\n",token->type);
+	// printf("%d\n",token->type);
 		tmp = token->content;
 		if (!*tmp)
 		{
@@ -112,6 +112,7 @@ void	expand_var(t_env *env, char **content)
 	join = NULL;
 	last_str = NULL;
 	prev = *content;
+	// printf("<<<<<<<%s\n", *content);
 	i = 0;
 	while (prev[i] && !exp_here(prev[i], prev[i + 1]))
 		i++;
@@ -123,21 +124,25 @@ void	expand_var(t_env *env, char **content)
 	str1 = get_value_of_exp(env, ft_substr(prev, i + 1, j - i -1));
 	// printf ("%d\n", j);
 	join = ft_strjoin(str, str1);
+	printf ("<<<<%s\n", join);
 	if (ft_strlen(prev + j))
 		last_str = ft_substr(prev, j, ft_strlen(prev + j));
+	printf (">>>>>%s\n", last_str);
 	*content = ft_strjoin(join, last_str);
+	// printf("-----%s\n", *content);
 	// printf ("%s\n", *content);
 	// if (!last_str)
 	// 	free(join);
-	if (last_str)
-		free(last_str);
-	free(str1);
-	free(prev);
+	
+	// if (last_str)
+	// 	free(last_str);
+	// free(str1);
+	// free(prev);
 	// free(str);
 	// free(str1);
 	// free(join);
 	// free(last_str);
-	// expand_var(env, content);
+	expand_var(env, content);
 }
 
 void	check_exp(t_token *tok, t_env *env)
@@ -153,8 +158,9 @@ void	check_exp(t_token *tok, t_env *env)
 	{
 		if (*(tok->content) == '$')
 			tok->expand = 1;
-		// printf ("%s", tok->content);
+		printf ("%s\n",tok->content);
 		expand_var(env, &tok->content);
+		printf ("%s\n",tok->content);
 		// printf ("643135454");
 		// printf ("Yassir\n");
 	}

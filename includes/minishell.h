@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/07 00:13:37 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/08 07:09:26 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ void	ft_lstclear_t(t_token **lst);
 t_env  *ft_lstnew_env(char *key, char *value);
 t_env  *ft_lstlast_env(t_env *lst);
 void    ft_lstadd_back_env(t_env **lst, t_env *new);
+void	ft_lstclear(t_token **lst);
+void	ft_lstdelone(t_token *lst);
 
 
 //*---------env--------*//

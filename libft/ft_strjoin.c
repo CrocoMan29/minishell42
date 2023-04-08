@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 21:11:27 by yismaail          #+#    #+#             */
-/*   Updated: 2023/02/06 20:33:35 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/08 07:43:00 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ char	*ft_strjoin(char *old_str, char *current_str)
 	{
 		old_str = malloc(1 * sizeof(char));
 		old_str[0] = '\0';
+	}
+	if (!current_str)
+	{
+		current_str = malloc(1 * sizeof(char));
+		current_str[0] = '\0';
 	}
 	if (!old_str || !current_str)
 		return (ft_free(old_str));
