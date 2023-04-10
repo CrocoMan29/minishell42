@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/08 07:19:40 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/10 06:54:01 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ void	check_args(int ac, char **av, t_env **dup_env, char **env)
 
 void	ft_minishell(t_env **env, t_token **token)
 {
+	t_token *tmp;
+
+	tmp = *token;
 	handler_expand(token, *env, *token);
-	ft_lstclear(token);
+	ft_lstclear_t(token);
 }
 
 int	main(int ac, char **av, char **env)
@@ -48,23 +51,26 @@ int	main(int ac, char **av, char **env)
 		add_history(line);
 		// free(line);
 		if (token_line(line, &token))
-		{
+		{	
+			
 			ft_minishell(&dup_env, &token);
+			// printf ("%s", token->content);
+			// printf("yassir");
 			// while (token)
 			// {
 			// 	printf("--|%d|--", token->type);
 			// 	token = token->next;
 			// }
 			// printf("\n");
-			if (ft_strncmp(line, "env", 3) == 0)
-			{
-				while (dup_env)
-				{
-					printf("%s=", dup_env->key);
-					printf("%s\n", dup_env->value);
-					dup_env = dup_env->next;
-				}
-			}
+			// if (ft_strncmp(line, "env", 3) == 0)
+			// {
+			// 	while (dup_env)
+			// 	{
+			// 		printf("%s=", dup_env->key);
+			// 		printf("%s\n", dup_env->value);
+			// 		dup_env = dup_env->next;
+			// 	}
+			// }
 			// if (!dup_env->next)
 			// 	return (0);
 			// printf("%s\n", dup_env->key);

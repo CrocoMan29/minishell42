@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:54:37 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/08 07:40:23 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/10 10:28:22 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	trim_quotes(t_token *token)
 	// //TODOfree previous token
 	while (token)
 	{
-	// printf("%d\n",token->type);
 		tmp = token->content;
 		if (!*tmp)
 		{
@@ -64,7 +63,6 @@ void	hyphen_exp(t_token *tok, t_env *env)
 	{
 		tmp = tok->content;
 		tok->content = get_value_of_exp(env, ft_strdup("HOME"));
-		// printf ("yassir");
 		free(tmp); 
 	}
 }
@@ -124,10 +122,10 @@ void	expand_var(t_env *env, char **content)
 	str1 = get_value_of_exp(env, ft_substr(prev, i + 1, j - i -1));
 	// printf ("%d\n", j);
 	join = ft_strjoin(str, str1);
-	printf ("<<<<%s\n", join);
+	// printf ("<<<<%s\n", join);
 	if (ft_strlen(prev + j))
 		last_str = ft_substr(prev, j, ft_strlen(prev + j));
-	printf (">>>>>%s\n", last_str);
+	// printf (">>>>>%s\n", last_str);
 	*content = ft_strjoin(join, last_str);
 	// printf("-----%s\n", *content);
 	// printf ("%s\n", *content);
@@ -158,11 +156,53 @@ void	check_exp(t_token *tok, t_env *env)
 	{
 		if (*(tok->content) == '$')
 			tok->expand = 1;
-		printf ("%s\n",tok->content);
 		expand_var(env, &tok->content);
-		printf ("%s\n",tok->content);
-		// printf ("643135454");
-		// printf ("Yassir\n");
+	}
+}
+
+void	here_doc_exp(t_token *token)
+{
+	while (token)
+	{
+		if (*token->content == '$' && ft_strlen(token->content) == 1)
+		{
+			if (token->next && (token->next->type == DOUBLE || token->next->type == SINGLE))
+			{
+				token->content = ft_strdup("");
+				printf("%s", token->content);
+			}
+		}
+		else if (ft_strlen(token->content) == 2 && ft_strcmp(token->content, "<<") == 0 && token->type == OPERATOR)
+		{
+			if (token->next && token->next->type == SPACE)
+			{
+				if (token->next->next && token->next->next->type != PIPE && token->next->next->type != OPERATOR)
+				{
+					if (token->next->next->type == WORD)
+						token->next->next->type = SINGLE_EXP;
+					else
+						token->next->next->type = SINGLE;
+				}
+			}
+		}
+		token = token->next;
+	}
+}
+
+int	join_str(t_token **token, t_token *tmp)
+{
+	if ((*token)->type == PIPE || (*token)->type == OPERATOR || (*token)->type == SPACE)
+		return (0);
+	if (!tmp || tmp->type == PIPE || tmp->type == OPERATOR)
+		return (0);
+	else
+	{
+		tmp->content = ft_strjoin(tmp->content, (*token)->content);
+		printf("%s\n", (*token)->content);
+		tmp->next = (*token)->next;
+		ft_lstdelone_t(*token);
+		*token = tmp->next;
+		return (1);
 	}
 }
 
@@ -174,12 +214,16 @@ void	handler_expand(t_token **token, t_env *env, t_token *tok)
 	(void)env;
 	(void)tok;
 	trim_quotes(*token);
-	
+	here_doc_exp(*token);
 	while (tok)
 	{
 		check_exp(tok, env);
-		tok = tok->next;
+		
+		if (join_str(&tok, tmp) == 0)
+		{
+			tmp = tok;
+			tok = tok->next;
+		}
+		// printf("%s\n", tok->content);
 	}
-	// printf ("\n");
-	
 }

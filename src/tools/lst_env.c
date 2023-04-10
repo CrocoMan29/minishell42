@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 00:24:02 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/08 07:09:15 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/10 06:53:41 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,29 @@ void    ft_lstadd_back_env(t_env **lst, t_env *new)
     last->next = new;
 }
 
-void	ft_lstclear(t_token **lst)
-{
-	t_token	*ptr;
-	t_token	*tmp;
+// void	ft_lstclear(t_token **lst)
+// {
+// 	t_token	*ptr;
+// 	t_token	*tmp;
 
-	if (!lst)
-		return ;
-	ptr = *lst;
-	while (ptr)
-	{
-		tmp = ptr->next;
-		ft_lstdelone(ptr);
-		ptr = tmp;
-	}
-	*lst = NULL;
-}
+// 	if (!lst)
+// 		return ;
+// 	ptr = *lst;
+// 	while (ptr)
+// 	{
+// 		tmp = ptr->next;
+// 		ft_lstdelone(ptr);
+// 		ptr = tmp;
+// 	}
+// 	*lst = NULL;
+// }
 
-void	ft_lstdelone(t_token *lst)
-{
-	if (lst)
-	{
-		if (lst->content)
-			free(lst->content);
-		free(lst);
-	}
-}
+// void	ft_lstdelone(t_token *lst)
+// {
+// 	if (lst)
+// 	{
+// 		if (lst->content)
+// 			free(lst->content);
+// 		free(lst);
+// 	}
+// }
