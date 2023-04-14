@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:54:37 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/10 10:28:22 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/14 09:17:15 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,20 +169,29 @@ void	here_doc_exp(t_token *token)
 			if (token->next && (token->next->type == DOUBLE || token->next->type == SINGLE))
 			{
 				token->content = ft_strdup("");
-				printf("%s", token->content);
+				// printf("%s", token->content);
 			}
 		}
-		else if (ft_strlen(token->content) == 2 && ft_strcmp(token->content, "<<") == 0 && token->type == OPERATOR)
+		else if (ft_strlen(token->content) == 2 && token->type == OPERATOR && ft_strcmp(token->content, "<<") == 0)
 		{
 			if (token->next && token->next->type == SPACE)
 			{
 				if (token->next->next && token->next->next->type != PIPE && token->next->next->type != OPERATOR)
 				{
 					if (token->next->next->type == WORD)
+					{
 						token->next->next->type = SINGLE_EXP;
+					}
 					else
 						token->next->next->type = SINGLE;
 				}
+			}
+			else if (token->next && token->next->type != PIPE && token->next->type != OPERATOR)
+			{
+				if (token->next->type == WORD)
+					token->next->type = SINGLE_EXP;
+				else
+					token->next->type = SINGLE;
 			}
 		}
 		token = token->next;

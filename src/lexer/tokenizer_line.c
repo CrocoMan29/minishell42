@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 02:25:44 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/10 06:46:03 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/14 08:48:50 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	whish_separator(char *line)
 
 int	type_token(char *content)
 {
+	// printf("%s <<\n", content);
+	// exit(0);
 	if (*content == '\'')
 		return (SINGLE);
 	if (*content == '\"')

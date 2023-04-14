@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/10 08:23:32 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/14 09:15:02 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@
 //int	g_exit_status;
 char	**g_env;
 
-typedef struct s_lexer
-{
-	
-}		t_lexer;
-
 typedef struct s_redi
 {
 	enum {
@@ -37,8 +32,9 @@ typedef struct s_redi
 		out,
 		append,
 		herdoc,
-	}redir;
+	}	redir;
 	char			*file;
+	int				must_exp;
 	struct s_redi	*next;
 }					t_redi;
 
@@ -56,6 +52,12 @@ typedef struct s_env
 	char	*value;
 	struct s_env	*next;
 }					t_env;
+
+typedef struct s_cmd
+{
+	char	**cmd;
+	int
+}
 
 enum {
 	WORD,//0
@@ -149,4 +151,11 @@ void	trim_quotes(t_token *token);
 void	check_exp(t_token *tok, t_env *env);
 void	hyphen_exp(t_token *tok, t_env *env);
 char	*get_value_of_exp(t_env *env, char *key);
+
+
+//*---------checks_syntax--------*//
+void	remove_spaces(t_token **token, t_token *tok);
+void	ft_remove(t_token *tmp, t_token **curr, t_token **token);
+int		check_syntax(t_token *token);
+int		ft_putendl_fd_2(char *s, char *str, int fd);
 #endif
