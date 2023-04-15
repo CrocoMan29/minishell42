@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:54:37 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/14 09:17:15 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/15 05:58:44 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,9 +179,7 @@ void	here_doc_exp(t_token *token)
 				if (token->next->next && token->next->next->type != PIPE && token->next->next->type != OPERATOR)
 				{
 					if (token->next->next->type == WORD)
-					{
 						token->next->next->type = SINGLE_EXP;
-					}
 					else
 						token->next->next->type = SINGLE;
 				}
@@ -228,11 +226,11 @@ void	handler_expand(t_token **token, t_env *env, t_token *tok)
 	{
 		check_exp(tok, env);
 		
+		// printf("%s\n", tok->content);
 		if (join_str(&tok, tmp) == 0)
 		{
 			tmp = tok;
 			tok = tok->next;
 		}
-		// printf("%s\n", tok->content);
 	}
 }

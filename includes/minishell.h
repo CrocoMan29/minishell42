@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/14 09:15:02 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/15 11:06:36 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,13 @@ typedef struct s_env
 
 typedef struct s_cmd
 {
-	char	**cmd;
-	int
-}
+	char			**cmd;
+	int				pipe;
+	int				err;
+	t_redi			*in;
+	t_redi			*out;
+	struct s_cmd	*next;
+}					t_cmd;
 
 enum {
 	WORD,//0
@@ -138,6 +142,10 @@ t_env  *ft_lstlast_env(t_env *lst);
 void    ft_lstadd_back_env(t_env **lst, t_env *new);
 void	ft_lstclear(t_token **lst);
 void	ft_lstdelone(t_token *lst);
+t_cmd  *ft_lstnew_cmd(void);
+t_cmd  *ft_lstlast_cmd(t_cmd *lst);
+void    ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new);
+int	ft_strchr_2(const char *str, int c);
 
 
 //*---------env--------*//
@@ -145,7 +153,7 @@ void	*parse_env(char **env, t_env **dup_env);
 int	get_idx_of(char *str, int c);
 
 //*---------expand--------*//
-void	ft_minishell(t_env **env, t_token **token);
+void	ft_minishell(t_env **env, t_token **token, t_cmd **cmd);
 void	handler_expand(t_token **token, t_env *env, t_token *tok);
 void	trim_quotes(t_token *token);
 void	check_exp(t_token *tok, t_env *env);

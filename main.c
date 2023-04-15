@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/14 09:06:11 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/15 08:36:40 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	remove_spaces(t_token **token, t_token *tok)
 	}
 }
 
-void	ft_minishell(t_env **env, t_token **token)
+void	ft_minishell(t_env **env, t_token **token, t_cmd **cmd)
 {
 	t_token *tmp;
 
@@ -51,7 +51,8 @@ void	ft_minishell(t_env **env, t_token **token)
 	remove_spaces(token, *token);
 	if (check_syntax(*token))
 	{
-		printf("lhamdolilah");
+		parse_cmd(token, cmd);
+		printf("lhamdolilah\n");
 	}
 	else
 		ft_lstclear_t(token);
@@ -62,9 +63,11 @@ int	main(int ac, char **av, char **env)
 	char	*line;
 	t_token	*token;
 	t_env	*dup_env;
+	t_cmd	*cmd;
 
 	line = NULL;
 	token = NULL;
+	cmd = NULL;
 	// (void)env;
 	dup_env = NULL;
 	check_args(ac, av, &dup_env, env);
@@ -76,7 +79,7 @@ int	main(int ac, char **av, char **env)
 		add_history(line);
 		if (token_line(line, &token))
 		{	
-			ft_minishell(&dup_env, &token);
+			ft_minishell(&dup_env, &token, &cmd);
 			// printf ("%s", token->content);
 			// printf("yassir");
 			// while (token)

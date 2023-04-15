@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 00:05:30 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/14 08:05:11 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/15 07:09:10 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	check_syntax(t_token *token)
 		return (ft_putendl_fd_2("syntax error near unexpected token", "newline", 2));
 	while(token)
 	{
-		if ((!ft_strcmp(token->content, "&&") || !ft_strcmp(token->content, "&")) || token->type == WORD)
-			return (ft_putendl_fd_2("syntax error haha", NULL, 2));
+		if ((!ft_strcmp(token->content, "&&") || !ft_strcmp(token->content, "&")) && token->type == WORD)
+			return (ft_putendl_fd_2("syntax error asat", "haha", 2));
 		if (tmp && !find_error(token, tmp))
 			return (0);
 		tmp = token;
