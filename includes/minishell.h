@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/15 11:06:36 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/16 03:10:55 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,20 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-//int	g_exit_status;
-char	**g_env;
+int	g_exit_status;
+// char	**g_env;
+
+enum {
+	heredoc,
+	in,
+	out,
+	append,
+};
+
 
 typedef struct s_redi
 {
-	enum {
-		in,
-		out,
-		append,
-		herdoc,
-	}	redir;
+	int				type;
 	char			*file;
 	int				must_exp;
 	struct s_redi	*next;
@@ -145,8 +148,10 @@ void	ft_lstdelone(t_token *lst);
 t_cmd  *ft_lstnew_cmd(void);
 t_cmd  *ft_lstlast_cmd(t_cmd *lst);
 void    ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new);
-int	ft_strchr_2(const char *str, int c);
-
+int		ft_strchr_2(const char *str, int c);
+void	ft_lstadd_back_redi(t_redi **lst, t_redi *new);
+t_redi	*ft_lstnew_redi(char *out, int type);
+t_redi	*ft_lstlast_redi(t_redi *lst);
 
 //*---------env--------*//
 void	*parse_env(char **env, t_env **dup_env);
@@ -166,4 +171,13 @@ void	remove_spaces(t_token **token, t_token *tok);
 void	ft_remove(t_token *tmp, t_token **curr, t_token **token);
 int		check_syntax(t_token *token);
 int		ft_putendl_fd_2(char *s, char *str, int fd);
+
+//*---------parsing--------*//
+void	parse_cmd(t_token **token, t_cmd **cmd);
+void	init_cmd(t_token **token, t_cmd **cmd);
+void	rub_operator(t_cmd *cmd, t_token *token, t_token **tok);
+void	is_operator(t_token *token, t_cmd *cmd);
+int		check_redir(t_token *token);
+void	set_oper(t_token *token, t_redi **redir, int type);
+void	set_cmd(t_cmd *cmd);
 #endif

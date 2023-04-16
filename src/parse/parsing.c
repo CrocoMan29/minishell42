@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 08:10:31 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/15 11:38:03 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/16 03:10:33 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	set_oper(t_token *token, t_redi **redir, int type)
 {
 	if (token)
-		ft_lstadd_back_4(redir,
-			ft_lstnew_4(ft_strdup(token->content), type));
-	if (token && type == herdoc && token->type == SINGLE_EXP)
-		ft_lstlast_3(*redir) = 1;
+		ft_lstadd_back_redi(redir,
+			ft_lstnew_redi(ft_strdup(token->content), type));
+	if (token && type == heredoc && token->type == SINGLE_EXP)
+	ft_lstlast_redi(*redir)->must_exp = 1;
 }
 
 int	check_redir(t_token *token)
@@ -48,21 +48,41 @@ void	is_operator(t_token *token, t_cmd *cmd)
 		}
 	}
 	if (!ft_strcmp(token->content, "<<"))
-		set_oper()
+		set_oper(token->next, &cmd->in, heredoc);
+	if (!ft_strcmp(token->content, "<"))
+		set_oper(token->next, &cmd->in, in);
+	if (!ft_strcmp(token->content, ">"))
+		set_oper(token->next, &cmd->out, out);
+	if (!ft_strcmp(token->content, ">>"))
+		set_oper(token->next, &cmd->out, append);
 }
 
 void	rub_operator(t_cmd *cmd, t_token *token, t_token **tok)
 {
 	t_token	*tmp;
 
+	(void)tok;
 	tmp = NULL;
 	while(token && token->type != PIPE)
 	{
 		if (token->type == OPERATOR)
 		{
 			is_operator(token, ft_lstlast_cmd(cmd));
+			while(cmd)
+			{
+				printf ("%s\n", cmd->in->file);
+				cmd = cmd->next;
+			}
 		}
 	}
+}
+
+void	set_cmd(t_cmd *cmd)
+{
+	cmd->cmd = NULL;
+	cmd->in = NULL;
+	cmd->out = NULL;
+	cmd->pipe = 0;
 }
 
 void	init_cmd(t_token **token, t_cmd **cmd)
