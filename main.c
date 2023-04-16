@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/15 21:31:36 by meharit          ###   ########.fr       */
+/*   Updated: 2023/04/16 17:22:38 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int ac, char **av, char **env)
 
 
 			// ft_exit();
-			ft_env(dup_env);
+			// ft_env(dup_env);
 
 
 
