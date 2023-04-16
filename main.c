@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/15 08:36:40 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/15 21:31:36 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	remove_spaces(t_token **token, t_token *tok)
 
 void	ft_minishell(t_env **env, t_token **token, t_cmd **cmd)
 {
+	(void) cmd;
+
 	t_token *tmp;
 
 	tmp = *token;
@@ -51,7 +53,7 @@ void	ft_minishell(t_env **env, t_token **token, t_cmd **cmd)
 	remove_spaces(token, *token);
 	if (check_syntax(*token))
 	{
-		parse_cmd(token, cmd);
+		//parse_cmd(token, cmd);
 		printf("lhamdolilah\n");
 	}
 	else
@@ -68,18 +70,28 @@ int	main(int ac, char **av, char **env)
 	line = NULL;
 	token = NULL;
 	cmd = NULL;
-	// (void)env;
 	dup_env = NULL;
 	check_args(ac, av, &dup_env, env);
 	while (1)
 	{
 		line = readline("minishell>");
 		if (!line)
+		{
+			printf("exit\n"); //////
 			exit(1);
+		}
 		add_history(line);
 		if (token_line(line, &token))
 		{	
 			ft_minishell(&dup_env, &token, &cmd);
+
+
+			// ft_exit();
+			ft_env(dup_env);
+
+
+
+
 			// printf ("%s", token->content);
 			// printf("yassir");
 			// while (token)

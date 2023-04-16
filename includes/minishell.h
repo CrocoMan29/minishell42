@@ -6,7 +6,11 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/04/16 03:10:55 by yismaail         ###   ########.fr       */
+=======
+/*   Updated: 2023/04/15 21:29:51 by meharit          ###   ########.fr       */
+>>>>>>> e3b1125121ee5ccbee4511bef349884f27def00d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,23 +139,24 @@ int	type_token(char *content);
 
 
 //*---------lst_func--------*//
-t_token  *ft_lstnew_m(char *content);
-t_token  *ft_lstlast_m(t_token *lst);
+t_token	*ft_lstnew_m(char *content);
+t_token	*ft_lstlast_m(t_token *lst);
 void    ft_lstadd_back_m(t_token **lst, t_token *new);
 void	ft_lstdelone_t(t_token *lst);
 void	ft_lstclear_t(t_token **lst);
-t_env  *ft_lstnew_env(char *key, char *value);
-t_env  *ft_lstlast_env(t_env *lst);
+t_env	*ft_lstnew_env(char *key, char *value);
+t_env	*ft_lstlast_env(t_env *lst);
 void    ft_lstadd_back_env(t_env **lst, t_env *new);
 void	ft_lstclear(t_token **lst);
 void	ft_lstdelone(t_token *lst);
-t_cmd  *ft_lstnew_cmd(void);
-t_cmd  *ft_lstlast_cmd(t_cmd *lst);
+t_cmd	*ft_lstnew_cmd(void);
+t_cmd	*ft_lstlast_cmd(t_cmd *lst);
 void    ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new);
 int		ft_strchr_2(const char *str, int c);
 void	ft_lstadd_back_redi(t_redi **lst, t_redi *new);
 t_redi	*ft_lstnew_redi(char *out, int type);
 t_redi	*ft_lstlast_redi(t_redi *lst);
+
 
 //*---------env--------*//
 void	*parse_env(char **env, t_env **dup_env);
