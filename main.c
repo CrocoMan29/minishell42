@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/16 17:22:38 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/17 04:44:10 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,22 @@ void	remove_spaces(t_token **token, t_token *tok)
 void	ft_minishell(t_env **env, t_token **token, t_cmd **cmd)
 {
 	(void) cmd;
+	t_cmd *tmp;
 
-	t_token *tmp;
-
-	tmp = *token;
+	tmp = *cmd;
 	handler_expand(token, *env, *token);
 	remove_spaces(token, *token);
 	if (check_syntax(*token))
 	{
-		//parse_cmd(token, cmd);
-		printf("lhamdolilah\n");
+		parse_cmd(token, cmd);
+			// while (*cmd)
+			// {
+			// 	printf("%s\n", (*cmd)->cmd[0]);
+			// 	printf("%s\n", (*cmd)->cmd[1]);
+			// 	(*cmd) = (*cmd)->next;
+			// }
+		
+		// // printf("lhamdolilah\n");
 	}
 	else
 		ft_lstclear_t(token);
@@ -67,14 +73,14 @@ int	main(int ac, char **av, char **env)
 	t_env	*dup_env;
 	t_cmd	*cmd;
 
-	line = NULL;
-	token = NULL;
-	cmd = NULL;
 	dup_env = NULL;
 	check_args(ac, av, &dup_env, env);
 	while (1)
 	{
+		token = NULL;
+		cmd = NULL;
 		line = readline("minishell>");
+		// int i =-1;
 		if (!line)
 		{
 			printf("exit\n"); //////
@@ -84,8 +90,13 @@ int	main(int ac, char **av, char **env)
 		if (token_line(line, &token))
 		{	
 			ft_minishell(&dup_env, &token, &cmd);
-
-
+			// printf("%s\n", token->content);
+			// printf("yassir\n");
+			
+			// while (tmp->cmd[i++])
+			// {
+			// 	printf("%s\n", tmp->cmd[i]);
+			// }
 			// ft_exit();
 			// ft_env(dup_env);
 
@@ -93,12 +104,15 @@ int	main(int ac, char **av, char **env)
 
 
 			// printf ("%s", token->content);
-			// printf("yassir");
-			// while (token)
-			// {
-			// 	printf("--|%d|--", token->type);
-			// 	token = token->next;
-			// }
+			if (!token)
+			{
+
+			while (token)
+			{
+				printf("--|%d|--", token->type);
+				token = token->next;
+			}
+			}
 			// printf("\n");
 			// if (ft_strncmp(line, "env", 3) == 0)
 			// {
@@ -125,5 +139,6 @@ int	main(int ac, char **av, char **env)
 			// 	dup_env = dup_env->next;
 			// }
 		}
+		free(line);
 	}
 }

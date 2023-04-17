@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:54:37 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/15 05:58:44 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/17 03:23:13 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ int	join_str(t_token **token, t_token *tmp)
 	else
 	{
 		tmp->content = ft_strjoin(tmp->content, (*token)->content);
-		printf("%s\n", (*token)->content);
+		// printf("%s\n", (*token)->content);
 		tmp->next = (*token)->next;
 		ft_lstdelone_t(*token);
 		*token = tmp->next;

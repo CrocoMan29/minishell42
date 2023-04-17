@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 08:10:31 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/16 18:09:04 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/17 02:11:29 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	rub_operator(t_cmd *cmd, t_token *token, t_token **tok)
 				tmp1 = token->next->next;
 				ft_remove(token, &token->next, tok);
 				ft_remove(tmp, &token, tok);
-				token = tmp2;
+				token = tmp1;
 			}
 		}
 		else
@@ -150,13 +150,13 @@ void	parse_cmd(t_token **token, t_cmd **cmd)
 		tmp1 = tmp;
 		fill_cmd(ft_lstlast_cmd(*cmd), tmp, &i);
 		tmp = tmp->next;
-		ft_lstdelone(tmp1);
+		ft_lstdelone_t(tmp1);
 	}
 	if (!tmp)
-		return (0);
+		return ;
 	*token = tmp->next;
 	fill_cmd(ft_lstlast_cmd(*cmd), tmp, &i);
-	ft_lstdelone(tmp);
+	ft_lstdelone_t(tmp);
 	if (ft_lstlast_cmd(*cmd)->pipe)
 		p++;
 	return(parse_cmd(token, cmd));
