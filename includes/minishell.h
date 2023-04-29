@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/17 03:17:25 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/29 02:23:46 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,12 @@ void	trim_quotes(t_token *token);
 void	check_exp(t_token *tok, t_env *env);
 void	hyphen_exp(t_token *tok, t_env *env);
 char	*get_value_of_exp(t_env *env, char *key);
+int	must_expand(int next);
+int	exp_here(int curr, int next);
+int	count(char *str);
+void	expand_var(t_env *env, char **content);
+void	here_doc_exp(t_token *token);
+int	join_str(t_token **token, t_token *tmp);
 
 
 //*---------checks_syntax--------*//
@@ -172,6 +178,8 @@ void	remove_spaces(t_token **token, t_token *tok);
 void	ft_remove(t_token *tmp, t_token **curr, t_token **token);
 int		check_syntax(t_token *token);
 int		ft_putendl_fd_2(char *s, char *str, int fd);
+int		find_error(t_token *token, t_token *tmp);
+int		error_format(t_token *token, t_token *tmp, int i);
 
 //*---------parsing--------*//
 void	parse_cmd(t_token **token, t_cmd **cmd);
@@ -181,4 +189,6 @@ void	is_operator(t_token *token, t_cmd *cmd);
 int		check_redir(t_token *token);
 void	set_oper(t_token *token, t_redi **redir, int type);
 void	set_cmd(t_cmd *cmd);
+void	init_args(t_token *token, t_cmd *cmd);
+void	fill_cmd(t_cmd *cmd, t_token *token, int *i);
 #endif

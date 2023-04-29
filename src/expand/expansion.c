@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:54:37 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/17 03:23:13 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/29 02:38:10 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,36 +110,25 @@ void	expand_var(t_env *env, char **content)
 	join = NULL;
 	last_str = NULL;
 	prev = *content;
-	// printf("<<<<<<<%s\n", *content);
 	i = 0;
 	while (prev[i] && !exp_here(prev[i], prev[i + 1]))
 		i++;
-	if (!prev[i])
+	if (!prev[i] || !prev[i + 1])
 		return ;
 	if (i)
 		str = ft_substr(prev, 0, i);
 	j = i + 1 + count(prev + i + 1);
 	str1 = get_value_of_exp(env, ft_substr(prev, i + 1, j - i -1));
-	// printf ("%d\n", j);
 	join = ft_strjoin(str, str1);
-	// printf ("<<<<%s\n", join);
 	if (ft_strlen(prev + j))
 		last_str = ft_substr(prev, j, ft_strlen(prev + j));
-	// printf (">>>>>%s\n", last_str);
 	*content = ft_strjoin(join, last_str);
-	// printf("-----%s\n", *content);
-	// printf ("%s\n", *content);
-	// if (!last_str)
-	// 	free(join);
-	
-	// if (last_str)
-	// 	free(last_str);
-	// free(str1);
-	// free(prev);
-	// free(str);
-	// free(str1);
-	// free(join);
-	// free(last_str);
+	if (!last_str)
+		free(join);
+	if (last_str)
+		free(last_str);
+	free(prev);
+	free(str1);
 	expand_var(env, content);
 }
 

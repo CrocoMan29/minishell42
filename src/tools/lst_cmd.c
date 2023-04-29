@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 08:47:36 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/15 11:06:23 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/29 01:44:42 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ t_cmd  *ft_lstlast_cmd(t_cmd *lst)
 void    ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new)
 {
     t_cmd *last;
-    if (!new)
-        return ;
-    if (!*lst)
+
+	last = *lst;
+    if (!(*lst))
     {
         *lst = new;
         return ;
     }
-    last = ft_lstlast_cmd(*lst);
+    while (last->next)
+		last = last->next;
     last->next = new;
 }
 

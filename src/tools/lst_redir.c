@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 11:38:29 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/16 01:50:47 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/29 01:56:58 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 void	ft_lstadd_back_redi(t_redi **lst, t_redi *new)
 {
-	t_redi	*prv;
+	t_redi	*last;
 
-	prv = *lst;
+	last = *lst;
 	if (!*lst)
 	{
 		*lst = new;
 		return ;
 	}
-	prv = ft_lstlast_redi(*lst);
-	prv->next = new;
+	while (last->next)
+		last = last->next;
+	last->next = new;
 }
 
 t_redi	*ft_lstnew_redi(char *out, int type)

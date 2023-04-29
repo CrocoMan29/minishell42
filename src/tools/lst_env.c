@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 00:24:02 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/14 05:12:07 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/29 02:48:27 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ void    ft_lstadd_back_env(t_env **lst, t_env *new)
 
 void	ft_remove(t_token *tmp, t_token **curr, t_token **token)
 {
+	t_token	*exp;
+
+
 	if (!tmp)
 	{
 		*token = (*curr)->next;
@@ -58,10 +61,10 @@ void	ft_remove(t_token *tmp, t_token **curr, t_token **token)
 	}
 	else
 	{
-		*token = (*curr)->next;
+		exp = (*curr)->next;
 		ft_lstdelone_t(*curr);
-		tmp->next = *token;
-		*curr = tmp;
+		tmp->next = exp;
+		*curr = exp;
 	}
 }
 

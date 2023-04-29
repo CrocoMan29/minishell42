@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/17 04:44:10 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/29 02:51:18 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,31 @@ void	remove_spaces(t_token **token, t_token *tok)
 	}
 }
 
+void	show_in(t_cmd *cmd, t_env **env)
+{
+	(void)env;
+	while (cmd)
+	{
+		printf("content : %s\n", cmd->cmd[0]);
+		
+		printf("content : %s\n", cmd.);
+		printf("content : %s\n", cmd->cmd[2]);
+
+		cmd = cmd->next;
+	}
+}
+
 void	ft_minishell(t_env **env, t_token **token, t_cmd **cmd)
 {
-	(void) cmd;
-	t_cmd *tmp;
+	// t_cmd *tmp;
 
-	tmp = *cmd;
+	// tmp = *cmd;
 	handler_expand(token, *env, *token);
 	remove_spaces(token, *token);
 	if (check_syntax(*token))
 	{
 		parse_cmd(token, cmd);
+		show_in(*cmd, env);
 			// while (*cmd)
 			// {
 			// 	printf("%s\n", (*cmd)->cmd[0]);
@@ -80,6 +94,7 @@ int	main(int ac, char **av, char **env)
 		token = NULL;
 		cmd = NULL;
 		line = readline("minishell>");
+		// t_cmd *tmp = cmd;
 		// int i =-1;
 		if (!line)
 		{
@@ -104,15 +119,15 @@ int	main(int ac, char **av, char **env)
 
 
 			// printf ("%s", token->content);
-			if (!token)
-			{
+			// if (!token)
+			// {
 
-			while (token)
-			{
-				printf("--|%d|--", token->type);
-				token = token->next;
-			}
-			}
+			// while (token)
+			// {
+			// 	printf("--|%d|--", token->type);
+			// 	token = token->next;
+			// }
+			// }
 			// printf("\n");
 			// if (ft_strncmp(line, "env", 3) == 0)
 			// {
