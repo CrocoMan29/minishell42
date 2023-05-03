@@ -1,46 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 00:32:06 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/30 18:05:05 by meharit          ###   ########.fr       */
+/*   Created: 2023/04/18 23:26:44 by meharit           #+#    #+#             */
+/*   Updated: 2023/05/03 01:14:56 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	get_idx_of(char *str, int c)
+void	check_if_option(char *str, int *opt)
 {
-	int	i;
+	int i;
 
-	i = 0;
+	i = 1;
 	if (!str)
-		return (0);
-	while (str[i])
+		return ;
+	if (str[0] == '-')
 	{
-		if (str[i] == c)
-			return (i);
-		i++;
+		while (str[i])
+		{
+			if (str[i] != 'n')
+				return ;
+			i++;
+		}
+		*opt = 1;
 	}
-	return (0);
 }
 
-void	*parse_env(char **env, t_env **dup_env)
+void	ft_echo(t_cmd *cmd)
 {
+	int	opt;
 	int	i;
-	
-	i = 0;
-	if (!env || !*env)
-		return (NULL);
-	while (*env)
-	{
-		i = get_idx_of(*env, '=');
-		ft_lstadd_back_env(dup_env,
-			ft_lstnew_env(ft_substr(*env, 0, i), ft_substr(*env, i + 1, ft_strlen(*env) - i), 1));
-		env++;
+
+	opt = 0;
+	i = 1;
+	check_if_option(cmd->cmd[1], &opt);
+	if (opt)
+		i++;
+	while (cmd->cmd[i])
+	{	
+		printf("%s",cmd->cmd[i]);
+		if (i < cmd_len(cmd->cmd) - 1)
+			printf(" ");
+		i++;
 	}
-	return (dup_env);
+	if (!opt)
+		printf("\n");
 }

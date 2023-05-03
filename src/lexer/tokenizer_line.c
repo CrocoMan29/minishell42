@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 02:25:44 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/14 08:48:50 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/05/03 00:46:51 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	type_token(char *content)
 		return (WORD);
 }
 
-int	take_separator(char *line, t_token **token)
+int	take_separator(char *line, t_token **token, int *done)
 {
 	int	i;
 
@@ -57,14 +57,19 @@ int	take_separator(char *line, t_token **token)
 	while (line[i] && ((line[i] >= 9 && line[i] <= 12) || line[i] == 32))
 		i++;
 	if (i && *token)
+	{
+		*done = 1;
 		ft_lstadd_back_m(token, ft_lstnew_m(ft_strdup(" ")));
+	}
 	if (whish_separator(line + i) == 1)
 	{
+		*done = 1;
 		ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line + i, 0, 1)));
 		return (i + 1);
 	}
 	if (whish_separator(line + i) == 3)
 	{
+		*done = 1;
 		ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line + i, 0, 2)));
 		return (i + 2);
 	}
@@ -72,7 +77,7 @@ int	take_separator(char *line, t_token **token)
 	
 }
 
-int	with_quotes(char *line, t_token **token, int c, int *flag)
+int	with_quotes(char *line, t_token **token, int c, int *flag, int *done)
 {
 	int	i;
 
@@ -81,27 +86,34 @@ int	with_quotes(char *line, t_token **token, int c, int *flag)
 		i++;
 	if (line[i] != c)
 	{
-		ft_putstr_fd("eroooor", 2);
+		ft_putstr_fd("eroooor11", 2);
 		*flag = 0;
 		return (0);
 	}
-	ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i + 1)));
+	if (i)
+	{
+		*done = 1;
+		ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i + 1)));
+	}
 	return (i + 1);
 }
 
-int	take_word(char *line, t_token **token, int *flag)
+int	take_word(char *line, t_token **token, int *flag, int *done)
 {
 	int	i;
 
 	i = 0;
-	if (*line == '\'' || *line == '\"')
-		return (with_quotes(line, token, *line, flag));
+	if (line[i] == '\'' || line[i] == '\"')
+		return (with_quotes(line, token, *line, flag, done));
 	if (whish_separator(line + i))
 		return (0);
 	while (line[i] && !whish_separator(line + i) && line[i] != '\'' && line[i] != '\"')
 		i++;
 	if (i)
+	{
+		*done = 1;
 		ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i)));
+	}
 	return (i);
 }
 
@@ -109,20 +121,25 @@ int	token_line(char *line, t_token **token)
 {
 	int	i;
 	int	flag;
+	int	done;
 	
 	i = 0;
 	flag = 1;
 	while (line[i])
 	{
-		i += take_separator(line + i, token);
-		i += take_word(line + i, token, &flag);
+		done = 0;
+		i += take_separator(line + i, token, &done);
+		i += take_word(line + i, token, &flag, &done);
 		if (!flag)
 		{
 			ft_lstclear_t(token);
 			write(2, "token line error", 16);
 			return (0);
 		}
-		i++;
+		if (done == 0)
+			i++;
 	}
+	check_tokens(*token);
+	printf("*******************************");
 	return (1);
 }

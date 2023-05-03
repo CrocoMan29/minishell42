@@ -58,15 +58,22 @@ CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 NAME	=	libft.a
 
+YELLOW		= \e[0;33m
+RESET		= \e[0;33m
+
 all		:	${NAME}
 
+$(OBJS) :  $(SRCS)
+			@$(CC) $(CFLAGS) -c $(SRCS)
+
 ${NAME}	:	${OBJS}
-			ar -rc libft.a ${OBJS}
+			@printf "$(YELLOW)\rPreparing libft ...\n\n$(RESET)"
+			@ar -rc libft.a ${OBJS}
 
 clean	:
-			rm -f $(OBJS) 
+			@rm -f $(OBJS) 
 
 fclean	:	clean
-			rm -f ${NAME}
+			@rm -f ${NAME}
 
 re		:	fclean all

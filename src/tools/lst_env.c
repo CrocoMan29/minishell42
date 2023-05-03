@@ -6,13 +6,13 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 00:24:02 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/29 02:48:27 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:59:41 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_env  *ft_lstnew_env(char *key, char *value)
+t_env  *ft_lstnew_env(char *key, char *value, int val)
 {
     t_env *new;
 
@@ -21,6 +21,7 @@ t_env  *ft_lstnew_env(char *key, char *value)
         return (NULL);
     new->key = key;
 	new->value = value;
+	new->valid = val;
     new->next = NULL;
     return (new);
 }
