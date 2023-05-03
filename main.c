@@ -6,11 +6,13 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/05/01 16:48:30 by meharit          ###   ########.fr       */
+/*   Updated: 2023/05/03 17:13:23 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void	minishell_mess()
 {
@@ -58,19 +60,6 @@ void	remove_spaces(t_token **token, t_token *tok)
 	}
 }
 
-/* void	show_in(t_cmd *cmd, t_env **env)
-{
-	(void)env;
-	while (cmd)
-	{
-		printf("content : %s\n", cmd->cmd[0]);
-	
-		printf("content : %s\n", cmd->cmd[2]);
-
-		cmd = cmd->next;
-	}
-} */
-
 void	ft_minishell(t_env **env, t_token **token, t_cmd **cmd)
 {
 	// t_cmd *tmp;
@@ -97,6 +86,7 @@ void	ft_minishell(t_env **env, t_token **token, t_cmd **cmd)
 
 int	main(int ac, char **av, char **env)
 {
+	int		i;
 	char	*line;
 	t_token	*token;
 	t_env	*dup_env;
@@ -127,5 +117,13 @@ int	main(int ac, char **av, char **env)
 	
 		}
 		free(line);
+		i = 0;
+		while (cmd->cmd[i])
+		{
+			free(cmd->cmd[i]);
+			i++;
+		}
+		free (cmd->cmd);  //char **cmd
+		// system("leaks minishell");
 	}
 }

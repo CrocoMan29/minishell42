@@ -6,13 +6,13 @@
 #    By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 04:04:08 by yismaail          #+#    #+#              #
-#    Updated: 2023/05/01 16:48:08 by meharit          ###   ########.fr        #
+#    Updated: 2023/05/03 15:12:52 by meharit          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
 CC			=	cc
-CFLAGS		=	-Werror -Wextra -Wall -fsanitize=address -g
+CFLAGS		=	-Werror -Wextra -Wall #-fsanitize=address -g
 RM			=	rm -rf
 SRCS		=	main.c check_tokens.c  src/lexer/tokenizer_line.c src/tools/lst_addback_m.c \
 				src/tools/lst_env.c src/env/environment.c src/expand/expansion.c \
