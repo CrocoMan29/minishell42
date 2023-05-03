@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/29 02:23:46 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/05/01 16:54:33 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 
 int	g_exit_status;
 // char	**g_env;
+
+#define BLUE "\e[1;36m"
+# define GREEN "\e[0;92m"
+# define RED "\e[0;31m"
+# define RESET "\e[0m"
 
 enum {
 	heredoc,
@@ -53,8 +58,16 @@ typedef struct s_env
 {
 	char	*key;
 	char	*value;
+	int		valid;
 	struct s_env	*next;
 }					t_env;
+
+typedef struct s_exp
+{
+	char			*key;
+	char			*value;
+	struct s_exp	*next;
+}					t_exp;
 
 typedef struct s_cmd
 {
@@ -140,7 +153,7 @@ t_token	*ft_lstlast_m(t_token *lst);
 void    ft_lstadd_back_m(t_token **lst, t_token *new);
 void	ft_lstdelone_t(t_token *lst);
 void	ft_lstclear_t(t_token **lst);
-t_env	*ft_lstnew_env(char *key, char *value);
+t_env	*ft_lstnew_env(char *key, char *value, int val);
 t_env	*ft_lstlast_env(t_env *lst);
 void    ft_lstadd_back_env(t_env **lst, t_env *new);
 void	ft_lstclear(t_token **lst);
@@ -191,4 +204,22 @@ void	set_oper(t_token *token, t_redi **redir, int type);
 void	set_cmd(t_cmd *cmd);
 void	init_args(t_token *token, t_cmd *cmd);
 void	fill_cmd(t_cmd *cmd, t_token *token, int *i);
+
+//*-----meharit-------execution--------------------*//
+
+void    check_tokens(t_token *token);
+void    get_input(t_cmd *command);
+void	execute(t_cmd *cmd, t_env **dup_env);
+int		cmd_len(char **table);
+
+//*-------------------built-ins--------------------*//
+void	ft_env(t_env **dup_env);
+void	ft_unset(t_env **dup_env, t_cmd *cmd);
+void	ft_exit(t_cmd *cmd);
+void	ft_pwd(void);
+void	ft_cd(t_cmd *cmd, t_env **env);
+void	ft_echo(t_cmd *cmd);
+void	ft_export(t_env *dup_env, t_cmd *table);
+void    unset_var(t_env *env, int index, t_env **head);
+
 #endif

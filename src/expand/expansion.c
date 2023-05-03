@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:54:37 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/29 02:38:10 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/30 13:56:13 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void	here_doc_exp(t_token *token)
 
 int	join_str(t_token **token, t_token *tmp)
 {
-	if ((*token)->type == PIPE || (*token)->type == OPERATOR || (*token)->type == SPACE)
+	if ((*token)->type == PIPE || (*token)->type == OPERATOR || (*token)->type == SPACE || (*token)->type == WORD || (*token)->type == DOUBLE || (*token)->type == SINGLE)
 		return (0);
 	if (!tmp || tmp->type == PIPE || tmp->type == OPERATOR)
 		return (0);

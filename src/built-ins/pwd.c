@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/15 21:22:25 by meharit           #+#    #+#             */
-/*   Updated: 2023/05/01 14:36:57 by meharit          ###   ########.fr       */
+/*   Created: 2023/04/17 18:33:29 by meharit           #+#    #+#             */
+/*   Updated: 2023/04/18 21:01:45 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_env(t_env **dup_env)
+void	ft_pwd(void)
 {
-	t_env *tmp;
+    char *ptr;
 
-	if (!(*dup_env))
-	{
-		ft_lstadd_back_env(dup_env, ft_lstnew_env("PWD", getcwd(NULL, 0), 1));
-		ft_lstadd_back_env(dup_env, ft_lstnew_env("SHLVL", "1", 1));
-		ft_lstadd_back_env(dup_env, ft_lstnew_env("_", "/usr/bin/env", 1));
-		//add shell level and oldpwd check unset _
-	}
-	tmp = *dup_env;
-	while (tmp)
-	{
-		if (tmp->valid)
-			printf("%s=%s\n", tmp->key,tmp->value);
-		tmp = tmp->next;
-	}
+	ptr = getcwd(NULL, 0);
+	printf("%s\n", ptr);
 }
-
