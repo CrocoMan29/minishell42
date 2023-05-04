@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:18:29 by meharit           #+#    #+#             */
-/*   Updated: 2023/05/03 17:31:03 by meharit          ###   ########.fr       */
+/*   Updated: 2023/05/04 16:56:04 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,25 @@ int	valid_ident(char *ident)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	if (!ft_isalpha(ident[0]))
 	{
-		if (ident[0] != '\\')
+		if (ident[0] == '\\' || ident[0] == '_')
+		{
+			printf("here\n");
+			i++;
+		}
+		else
 			return (0);
 	}
 	while (ident[i] != '=' && ident[i])
 	{
 		if (ident[i] != '+' && ident[i] != '=')
 		{
-			if (!ft_isalpha(ident[i]) && !ft_isdigit(ident[i]))
+			if (!ft_isalpha(ident[i]) && !ft_isdigit(ident[i]) && ident[i] != '_')
 				return (0);
 		}
-		if (ident[i] == '+' && ident[i+1] != '=')
+		if (ident[i] == '+' && ident[i+1] != '=') //append
 			return (0);
 		i++;
 	}
@@ -105,7 +110,6 @@ void	append_change(t_env *env, int *append, char *key, char *value)
 		while (ft_strcmp(env->key, key))
 			env = env->next;
 		free(env->value);
-		printf("addre=  %p\n", key);
 		free(key);
 		env->value = value;
 		env->valid = 1;
@@ -156,6 +160,7 @@ void	ft_export(t_env *dup_env, t_cmd *table)
 				ft_putstr_fd("minishell: export: `", 2);
 				ft_putstr_fd(table->cmd[i], 2);
 				ft_putstr_fd("': not a valid identifier\n", 2);
+				printf("%d\n",i);
 			}
 			i++;
 		}
