@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 21:41:39 by meharit           #+#    #+#             */
-/*   Updated: 2023/05/04 17:50:32 by meharit          ###   ########.fr       */
+/*   Updated: 2023/05/04 23:27:40 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,42 @@ char	*get_home(t_env *env)
 	return (NULL);
 }
 
+void	upd_old_pwd(t_env *env)
+{
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (ft_strcmp("OLDPWD", tmp->key) == 0)
+		{
+			free(tmp->value);
+			tmp->value = get_pwd(env);
+		}
+		tmp = tmp->next;
+	}
+}
+
+void	upd_pwd(t_env *env, char *pwd)
+{
+			printf("%s\n", pwd);
+	while (env)
+	{
+		if (ft_strcmp(env->key, "PWD") == 0)
+			env->value = pwd;
+		env = env->next;
+	}
+}
+
 void	ft_cd(t_cmd *cmd, t_env **env)
 {
-	char	*old_pwd;
 	int		r_value;
 
 	if (cmd_len(cmd->cmd) == 1)
 	{
-		old_pwd = ft_my_strjoin("OLD_PWD=", get_pwd(*env));
-		printf("%s\n", old_pwd);
-		// cmd->cmd[0] = ft_strdup("export");
-		cmd->cmd[1] = old_pwd;
-		printf("good\n");
-		ft_export(*env, cmd);
+		upd_old_pwd(*env);
 		chdir(get_home(*env));
+		upd_pwd(*env, get_home(*env));
 		return ;
 	}
 	r_value = chdir(cmd->cmd[1]);
