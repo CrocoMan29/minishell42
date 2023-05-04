@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/05/01 23:07:27 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/05/04 05:20:17 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,11 +139,11 @@ typedef struct data
 
 //*----------LEXER----------*//
 int	token_line(char *line, t_token **token);
-int	take_separator(char *line, t_token **token, int *done);
+int	take_separator(char *line, t_token **token);
 int	whish_separator(char *line);
 void	check_args(int ac, char **av, t_env **dup_env, char **env);
-int	with_quotes(char *line, t_token **token, int c, int *flag, int *done);
-int	take_word(char *line, t_token **token, int *flag, int *done);
+int	with_quotes(char *line, t_token **token, int c, int *flag);
+int	take_word(char *line, t_token **token, int *flag);
 int	type_token(char *content);
 
 
