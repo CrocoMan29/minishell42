@@ -6,7 +6,7 @@
 /*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 21:42:54 by meharit           #+#    #+#             */
-/*   Updated: 2023/05/03 17:39:45 by meharit          ###   ########.fr       */
+/*   Updated: 2023/04/20 04:11:29 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ void	new_head(t_env **head_ptr)
 
     if (*head_ptr == NULL || (*head_ptr)->next == NULL)
         return;
-	
-	free((*head_ptr)->key);
-	free((*head_ptr)->value);
-
     second_node = (*head_ptr)->next;
     (*head_ptr)->next = second_node->next;
     *head_ptr = second_node;
@@ -45,7 +41,6 @@ void    unset_var(t_env *env, int index, t_env **head)
             free (tmp->key);
             free (tmp->value);
             env->next = new;
-			free(tmp);
             break;
         }
         i++;

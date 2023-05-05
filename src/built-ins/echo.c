@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 23:26:44 by meharit           #+#    #+#             */
-/*   Updated: 2023/05/04 16:17:08 by meharit          ###   ########.fr       */
+/*   Updated: 2023/05/03 01:14:56 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	check_if_option(char *str, int *opt)
 	int i;
 
 	i = 1;
+	if (!str)
+		return ;
 	if (str[0] == '-')
 	{
 		while (str[i])
@@ -36,8 +38,6 @@ void	ft_echo(t_cmd *cmd)
 
 	opt = 0;
 	i = 1;
-	if (cmd_len(cmd->cmd) == 1)
-		return ;
 	check_if_option(cmd->cmd[1], &opt);
 	if (opt)
 		i++;
