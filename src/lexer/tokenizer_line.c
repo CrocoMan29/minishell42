@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 02:25:44 by yismaail          #+#    #+#             */
-/*   Updated: 2023/05/04 05:21:11 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/04/14 08:48:50 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,11 @@ int	with_quotes(char *line, t_token **token, int c, int *flag)
 		i++;
 	if (line[i] != c)
 	{
-		ft_putstr_fd("eroooor11", 2);
+		ft_putstr_fd("eroooor", 2);
 		*flag = 0;
 		return (0);
 	}
-	if (i)
-	
-		ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i + 1)));
+	ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i + 1)));
 	return (i + 1);
 }
 
@@ -96,7 +94,7 @@ int	take_word(char *line, t_token **token, int *flag)
 	int	i;
 
 	i = 0;
-	if (line[i] == '\'' || line[i] == '\"')
+	if (*line == '\'' || *line == '\"')
 		return (with_quotes(line, token, *line, flag));
 	if (whish_separator(line + i))
 		return (0);
@@ -124,8 +122,7 @@ int	token_line(char *line, t_token **token)
 			write(2, "token line error", 16);
 			return (0);
 		}
+		i++;
 	}
-	check_tokens(*token);
-	printf("*******************************");
 	return (1);
 }

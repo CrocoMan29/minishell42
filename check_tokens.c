@@ -12,7 +12,6 @@ void    check_tokens(t_token *token)
         printf("type    = %d\n", tmp->type);
 		tmp = tmp->next;
 	}
-	printf("----------------------------\n");
 }
 
 void    get_input(t_cmd *command)

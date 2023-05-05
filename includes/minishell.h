@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 23:03:54 by yismaail          #+#    #+#             */
-/*   Updated: 2023/05/04 05:20:17 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:21:19 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,6 @@ typedef struct s_env
 	int		valid;
 	struct s_env	*next;
 }					t_env;
-
-typedef struct s_exp
-{
-	char			*key;
-	char			*value;
-	struct s_exp	*next;
-}					t_exp;
 
 typedef struct s_cmd
 {
