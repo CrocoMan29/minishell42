@@ -6,13 +6,11 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/05/04 16:28:42 by meharit          ###   ########.fr       */
+/*   Updated: 2023/05/03 04:50:11 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 void	minishell_mess()
 {
@@ -60,17 +58,27 @@ void	remove_spaces(t_token **token, t_token *tok)
 	}
 }
 
+/* void	show_in(t_cmd *cmd, t_env **env)
+{
+	(void)env;
+	while (cmd)
+	{
+		printf("content : %s\n", cmd->cmd[0]);
+	
+		printf("content : %s\n", cmd->cmd[2]);
+
+		cmd = cmd->next;
+	}
+} */
+
 void	ft_minishell(t_env **env, t_token **token, t_cmd **cmd)
 {
-	// t_cmd *tmp;
-
-	// tmp = *cmd;
 	handler_expand(token, *env, *token);
 	remove_spaces(token, *token);
 	if (check_syntax(*token))
 	{
 		parse_cmd(token, cmd);
-		// show_in(*cmd, env);
+		//show_in(*cmd, env);
 			// while (*cmd)
 			// {
 			// 	printf("%s\n", (*cmd)->cmd[0]);
@@ -100,21 +108,17 @@ int	main(int ac, char **av, char **env)
 		token = NULL;
 		cmd = NULL;
 		line = readline(GREEN"minishell> "RESET);
-		// t_cmd *tmp = cmd;
-		// int i =-1;
 		if (!line)
 		{
-			printf("exit\n"); //////
+			printf("exit\n");
 			exit(1);
 		}
 		add_history(line);
 		if (token_line(line, &token))
-		{	
+		{
 			ft_minishell(&dup_env, &token, &cmd);
 			get_input(cmd);
 			execute(cmd, &dup_env);
-
-	
 		}
 		free(line);
 		i = 0;

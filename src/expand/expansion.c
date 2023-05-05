@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 01:54:37 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/30 13:56:13 by meharit          ###   ########.fr       */
+/*   Updated: 2023/05/03 01:12:46 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	trim_quotes(t_token *token)
 {
 	char *tmp;
-	t_token *temp;
-	temp = token;
-
+	
 	// //TODOfree previous token
 	while (token)
 	{
@@ -28,12 +26,12 @@ void	trim_quotes(t_token *token)
 			token->content = ft_strdup("");
 			return ;
 		}
-		if (token->type == 2)
+		if (token->type == DOUBLE)
 		{
 			token->content = ft_strtrim(token->content, "\"");
 			free(tmp);
 		}
-		if (token->type == 3)
+		if (token->type == SINGLE)
 		{
 			token->content = ft_strtrim(token->content, "\'");
 			free(tmp);
@@ -123,8 +121,8 @@ void	expand_var(t_env *env, char **content)
 	if (ft_strlen(prev + j))
 		last_str = ft_substr(prev, j, ft_strlen(prev + j));
 	*content = ft_strjoin(join, last_str);
-	if (!last_str)
-		free(join);
+	// if (!last_str)
+	// 	free(join);
 	if (last_str)
 		free(last_str);
 	free(prev);
@@ -156,10 +154,7 @@ void	here_doc_exp(t_token *token)
 		if (*token->content == '$' && ft_strlen(token->content) == 1)
 		{
 			if (token->next && (token->next->type == DOUBLE || token->next->type == SINGLE))
-			{
 				token->content = ft_strdup("");
-				// printf("%s", token->content);
-			}
 		}
 		else if (ft_strlen(token->content) == 2 && token->type == OPERATOR && ft_strcmp(token->content, "<<") == 0)
 		{
@@ -187,35 +182,35 @@ void	here_doc_exp(t_token *token)
 
 int	join_str(t_token **token, t_token *tmp)
 {
-	if ((*token)->type == PIPE || (*token)->type == OPERATOR || (*token)->type == SPACE || (*token)->type == WORD || (*token)->type == DOUBLE || (*token)->type == SINGLE)
+	if ((*token)->type == PIPE || (*token)->type == OPERATOR || (*token)->type == SPACE)
+	{
+		printf("ok\n");
 		return (0);
-	if (!tmp || tmp->type == PIPE || tmp->type == OPERATOR)
+	}
+	if (!tmp || tmp->type == PIPE || tmp->type == OPERATOR || tmp->type == SPACE)
 		return (0);
 	else
 	{
 		tmp->content = ft_strjoin(tmp->content, (*token)->content);
-		// printf("%s\n", (*token)->content);
 		tmp->next = (*token)->next;
 		ft_lstdelone_t(*token);
 		*token = tmp->next;
-		return (1);
 	}
+	return (1);
 }
 
 void	handler_expand(t_token **token, t_env *env, t_token *tok)
 {
 	t_token *tmp;
 	
-	tmp = NULL;
 	(void)env;
-	(void)tok;
+	(void)token;
+	tmp = NULL;
 	trim_quotes(*token);
 	here_doc_exp(*token);
 	while (tok)
 	{
 		check_exp(tok, env);
-		
-		// printf("%s\n", tok->content);
 		if (join_str(&tok, tmp) == 0)
 		{
 			tmp = tok;

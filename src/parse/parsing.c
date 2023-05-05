@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 08:10:31 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/29 02:40:11 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/05/03 00:31:28 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,10 @@ void	fill_cmd(t_cmd *cmd, t_token *token, int *i)
 	if (!token || token->type == SPACE)
 		return ;
 	if ((token->type == WORD || token->type == HYPHEN || token->type == SINGLE || token->type == DOUBLE) && cmd->cmd)
+	{
+		// printf("Token: %s\n", token->content);
 		cmd->cmd[(*i)++] = ft_strdup(token->content);
+	}
 	else if (*(token->content) == '|')
 	{
 		if (token->next && token->next->content)
