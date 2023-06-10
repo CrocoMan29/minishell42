@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 00:32:06 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/30 18:05:05 by meharit          ###   ########.fr       */
+/*   Updated: 2023/05/18 07:10:51 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	get_idx_of(char *str, int c)
 void	*parse_env(char **env, t_env **dup_env)
 {
 	int	i;
-	
+
 	i = 0;
 	if (!env || !*env)
 		return (NULL);
@@ -39,7 +39,8 @@ void	*parse_env(char **env, t_env **dup_env)
 	{
 		i = get_idx_of(*env, '=');
 		ft_lstadd_back_env(dup_env,
-			ft_lstnew_env(ft_substr(*env, 0, i), ft_substr(*env, i + 1, ft_strlen(*env) - i), 1));
+			ft_lstnew_env(ft_substr(*env, 0, i),
+				ft_substr(*env, i + 1, ft_strlen(*env) - i), 1));
 		env++;
 	}
 	return (dup_env);

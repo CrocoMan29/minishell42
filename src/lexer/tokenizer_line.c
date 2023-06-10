@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_line.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meharit <meharit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 02:25:44 by yismaail          #+#    #+#             */
-/*   Updated: 2023/05/04 05:21:11 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:41:30 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int	whish_separator(char *line)
 
 int	type_token(char *content)
 {
-	// printf("%s <<\n", content);
-	// exit(0);
 	if (*content == '\'')
 		return (SINGLE);
 	if (*content == '\"')
@@ -44,7 +42,7 @@ int	type_token(char *content)
 	if (*content == '~' && ft_strlen(content) == 1)
 		return (HYPHEN);
 	if (*content == ' ')
-		return (SPACE);
+		return (SPACEE);
 	else
 		return (WORD);
 }
@@ -69,7 +67,6 @@ int	take_separator(char *line, t_token **token)
 		return (i + 2);
 	}
 	return (i);
-	
 }
 
 int	with_quotes(char *line, t_token **token, int c, int *flag)
@@ -86,7 +83,6 @@ int	with_quotes(char *line, t_token **token, int c, int *flag)
 		return (0);
 	}
 	if (i)
-	
 		ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i + 1)));
 	return (i + 1);
 }
@@ -100,32 +96,10 @@ int	take_word(char *line, t_token **token, int *flag)
 		return (with_quotes(line, token, *line, flag));
 	if (whish_separator(line + i))
 		return (0);
-	while (line[i] && !whish_separator(line + i) && line[i] != '\'' && line[i] != '\"')
+	while (line[i] && !whish_separator(line + i)
+		&& line[i] != '\'' && line[i] != '\"')
 		i++;
 	if (i)
 		ft_lstadd_back_m(token, ft_lstnew_m(ft_substr(line, 0, i)));
 	return (i);
-}
-
-int	token_line(char *line, t_token **token)
-{
-	int	i;
-	int	flag;
-	
-	i = 0;
-	flag = 1;
-	while (line[i])
-	{
-		i += take_separator(line + i, token);
-		i += take_word(line + i, token, &flag);
-		if (!flag)
-		{
-			ft_lstclear_t(token);
-			write(2, "token line error", 16);
-			return (0);
-		}
-	}
-	check_tokens(*token);
-	printf("*******************************");
-	return (1);
 }

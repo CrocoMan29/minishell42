@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: meharit <meharit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:18:29 by meharit           #+#    #+#             */
-/*   Updated: 2023/05/01 16:59:00 by meharit          ###   ########.fr       */
+/*   Updated: 2023/05/27 23:40:21 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*get_key(char *ident, int *append)
 
 	i = 0;
 	if (ident[0] == '\\')
-		ident++;         // start ident after '\'
+		ident++;         						// start ident after '\'
 	while (ident[i] && ident[i] != '=' && ident[i] != '+')
 		i++;
 	if (ident[i] == '+')
@@ -81,10 +81,7 @@ int	does_exist(char *key, t_env *dup_env)
 	while (dup_env)
 	{
 		if (!ft_strcmp(key, dup_env->key))
-		{
-			printf("here\n");
 			return (1);
-		}
 		dup_env = dup_env->next;
 	}
 	return (0);
@@ -97,62 +94,83 @@ void	append_change(t_env *env, int *append, char *key, char *value)
 		while (ft_strcmp(env->key, key))
 			env = env->next;
 		env->value = ft_strjoin(env->value, value);
+		free(value);
+		free(key);
 	}
 	else 
 	{
 		while (ft_strcmp(env->key, key))
 			env = env->next;
+		free (key);
+		free(env->value);
 		env->value = value;
 		env->valid = 1;
 	}
 }
 
-void	ft_export(t_env *dup_env, t_cmd *table)
+void	export(t_env *dup_env, t_cmd *table) //??
 {
-	int	i;
+	if (cmd_len(table->cmd) == 1)
+	{
+		if (!dup_env)
+			env_i(&dup_env);
+		while (dup_env)
+		{
+			if (dup_env->value)
+			{
+				printf("declare -x ");
+				printf("%s",dup_env->key);
+				if (dup_env->value)
+					printf("=\"%s\"\n", dup_env->value);
+			}
+			dup_env = dup_env->next;
+		}
+		exec.g_exit_status = 0;
+	}	
+}
+
+void	error_mess_exp(char *cmd)
+{
+	ft_putstr_fd("minishell: export: `", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+	exec.g_exit_status = 1;
+}
+
+void	add_to(char *key, char *value, t_env *dup_env, char *ident)
+{
+
+	if (env_valid(ident))
+		ft_lstadd_back_env(&dup_env, ft_lstnew_env(key, value, 1));
+	else
+		ft_lstadd_back_env(&dup_env, ft_lstnew_env(key, value, 0));
+}
+
+void	ft_export(t_env *dup_env, t_cmd *table, int fork)
+{
+	int		i;
 	char	*key;
 	char	*value;
 	int		append; 
 
 	i = 1;
 	append = 0;
-	if (cmd_len(table->cmd) == 1)
+	export(dup_env, table);
+	while (table->cmd[i])
 	{
-		while (dup_env)
+		if (valid_ident(table->cmd[i]))
 		{
-			printf("declare -x ");
-			printf("%s=",dup_env->key);
-			printf("\"%s\"\n", dup_env->value);
-			dup_env = dup_env->next;
+			key = get_key(table->cmd[i], &append);
+			value = get_value(table->cmd[i]);
+			if (!does_exist(key, dup_env))
+				add_to(key, value, dup_env, table->cmd[i]);
+			else	
+				append_change(dup_env, &append, key, value);
 		}
+		else
+			error_mess_exp(table->cmd[i]);
+		i++;
 	}
-	else
-	{
-		while (table->cmd[i])
-		{
-			if (valid_ident(table->cmd[i]))
-			{
-				key = get_key(table->cmd[i], &append);
-				value = get_value(table->cmd[i]);
-				printf("key = %s value = %s\n", key,value);
-				if (!does_exist(key, dup_env))
-				{
-					if (env_valid(table->cmd[i]))
-						ft_lstadd_back_env(&dup_env, ft_lstnew_env(key, value, 1));
-					else
-						ft_lstadd_back_env(&dup_env, ft_lstnew_env(key, value, 0));
-				}
-				else	
-					append_change(dup_env, &append, key, value);
-			}
-			else 
-			{
-				ft_putstr_fd("minishell: export: `", 2);
-				ft_putstr_fd(table->cmd[i], 2);
-				ft_putstr_fd("': not a valid identifier\n", 2);
-			}
-			i++;
-		}
-	}
+	if (fork)
+		exit (exec.g_exit_status);
 }
-

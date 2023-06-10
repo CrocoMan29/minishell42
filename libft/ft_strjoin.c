@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 21:11:27 by yismaail          #+#    #+#             */
-/*   Updated: 2023/04/09 06:05:54 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:22:29 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ char	*ft_strjoin(char *old_str, char *current_str)
 	char		*new_str;
 
 	if (!old_str)
-		old_str =  ft_strdup("\0");
+		old_str = ft_strdup("\0");
 	if (!current_str)
-		current_str = ft_strdup("\0");
+		return (old_str);
 	if (!old_str || !current_str)
 		return (ft_free(old_str));
 	new_str = malloc(ft_strlen(old_str) + ft_strlen(current_str) + 1);

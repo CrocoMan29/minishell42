@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meharit <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: meharit <meharit@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 21:42:54 by meharit           #+#    #+#             */
-/*   Updated: 2023/04/20 04:11:29 by meharit          ###   ########.fr       */
+/*   Updated: 2023/05/27 23:40:21 by meharit          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void	new_head(t_env **head_ptr)
 {
-    t_env *second_node;
+    t_env   *second_node;
 
     if (*head_ptr == NULL || (*head_ptr)->next == NULL)
         return;
     second_node = (*head_ptr)->next;
     (*head_ptr)->next = second_node->next;
+    free ((*head_ptr)->key);
+    free ((*head_ptr)->value);
     *head_ptr = second_node;
 }
 
@@ -30,7 +32,7 @@ void    unset_var(t_env *env, int index, t_env **head)
     int     i;
 
     i = 0;
-	if (index == 0)           //check if working
+	if (index == 0)
 		new_head(head);
     while (env)
     {
@@ -48,33 +50,74 @@ void    unset_var(t_env *env, int index, t_env **head)
     }
 }
 
-void	ft_unset(t_env **dup_env, t_cmd *cmd)
+int ident_valid(char *ident)
+{
+    int i;
+
+    i = 0;
+    if (!ft_isalpha(ident[0]))
+    {
+        if (ident[0] == '\\' || ident[0] == '_')
+            i++;
+        else
+            return (0);
+    }
+    while (ident[i])
+    {
+        if (!ft_isalpha(ident[i]) && !ft_isdigit(ident[i]) && ident[i] != '_')
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+void    error_mess_uns(char *cmd)
+{
+    ft_putstr_fd("bash: unset: `", 2);
+    ft_putstr_fd(cmd, 2);
+    ft_putstr_fd("': not a valid identifier\n", 2);
+    exec.g_exit_status = 1;
+}
+
+void    unset(t_env **dup_env, char *cmd, t_env *tmp)
+{
+    int index;
+
+    index = 0;
+    while (tmp)
+	{
+        if (ft_strcmp(tmp->key, cmd) == 0)
+		{
+            unset_var(*dup_env, index, dup_env);
+			break ;
+		}
+		index++;
+		tmp = tmp->next;
+	}
+    free(tmp);
+}
+
+void	ft_unset(t_env **dup_env, t_cmd *cmd, int fork)
 {
     int     i;
-    int     index;
     t_env   *tmp;
 
     i = 1;
+    exec.g_exit_status = 0;
     if (cmd_len(cmd->cmd) > 1)
     {
         while (cmd->cmd[i])
         {
-            index = 0;
             tmp = *dup_env;
 			if (ft_strcmp(cmd->cmd[i], "_"))
 			{
-				while (tmp)
-				{
-			        if (ft_strcmp(tmp->key, cmd->cmd[i]) == 0)
-					{
-						unset_var(*dup_env, index, dup_env);
-						break ;
-					}
-					index++;
-					tmp = tmp->next;
-				}
+                if (!ident_valid(cmd->cmd[i]))
+                    error_mess_uns(cmd->cmd[i]);
+                unset(dup_env, cmd->cmd[i], tmp);
 			}
             i++;
         }
     }
+    if (fork)
+		exit (exec.g_exit_status);
 }
