@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meharit <meharit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 07:20:45 by yismaail          #+#    #+#             */
-/*   Updated: 2023/05/31 17:41:30 by meharit          ###   ########.fr       */
+/*   Updated: 2023/06/16 05:36:38 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	check_exp(t_token *tok, t_env *env)
 	if (tok->type == HYPHEN)
 	{
 		hyphen_exp(tok, env);
-		printf("%s\n", tok->content);
+		if (!tok->content)
+			return ;
 	}
 	else if ((tok->type == DOUBLE || tok->type == WORD)
 		&& ft_strlen(tok->content) > 1)
@@ -94,6 +95,7 @@ void	handler_expand(t_token **token, t_env *env, t_token *tok)
 	while (tok)
 	{
 		check_exp(tok, env);
+		// check_tokens(tok);
 		if (join_str(&tok, tmp) == 0)
 		{
 			tmp = tok;

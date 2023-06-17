@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meharit <meharit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 00:24:02 by yismaail          #+#    #+#             */
-/*   Updated: 2023/05/27 23:40:21 by meharit          ###   ########.fr       */
+/*   Updated: 2023/06/15 04:48:37 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ int	ft_putendl_fd_2(char *s, char *str, int fd)
 		write(fd, "\'", 1);
 	}
 	write (fd, "\n", 1);
-	exec.g_exit_status = 258;
+	g_exec.g_exit_status = 258;
 	return (0);
 }

@@ -38,6 +38,7 @@ void    get_input(t_cmd *command)
         }
 		printf("[node:%d] pipe   = %d\n", i,cmd->pipe);
 		printf("[node:%d] er     = %d\n", i,cmd->err);
+		printf("[node:%d] type     = %d\n", i,cmd->type);
         if (cmd->in)
         {
 			in = cmd->in;

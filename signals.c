@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/15 09:26:52 by yismaail          #+#    #+#             */
-/*   Updated: 2023/06/17 09:13:11 by yismaail         ###   ########.fr       */
+/*   Created: 2023/06/13 17:45:29 by meharit           #+#    #+#             */
+/*   Updated: 2023/06/15 04:09:23 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/minishell.h"
 
-char	*ft_strdup(const char *s1)
+void	sig_int_handler(int s)
 {
-	char	*str;
+	(void)s;
+	write(1, "\n", 1);
+	// rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
 
-	if(!s1)
-	{
-		str = malloc(sizeof(char) * 1);
-		str[0] = 0;
-		return (str);
-	}
-	str = (char *)malloc(ft_strlen(s1) + 1);
-	if (!str)
-		return (NULL);
-	ft_memcpy(str, s1, ft_strlen(s1) + 1);
-	return (str);
+void	set_signals(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sig_int_handler);
+}
+
+void	set_default(void)
+{
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+}
+
+void	to_exit(void)
+{
+	ft_putstr_fd("exit\n", 2);
+	exit(g_exec.g_exit_status);
 }

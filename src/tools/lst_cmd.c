@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 08:47:36 by yismaail          #+#    #+#             */
-/*   Updated: 2023/05/18 07:43:19 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/06/17 09:40:11 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	clear_cmds(t_cmd **cmd)
 		if (tmp1->out)
 			ft_lstclear_2(&tmp1->out);
 		if (tmp1->cmd)
-			ft_free(tmp1->cmd);
+			ft_free_tab2(tmp1->cmd);
 		tmp2 = tmp1->next;
 		free(tmp1);
 		tmp1 = tmp2;

@@ -6,7 +6,7 @@
 /*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 00:05:30 by yismaail          #+#    #+#             */
-/*   Updated: 2023/05/18 07:40:23 by yismaail         ###   ########.fr       */
+/*   Updated: 2023/06/17 08:44:18 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	check_syntax(t_token *token)
 				"newline", 2));
 	while (token)
 	{
+		if (token->check == 1)
+			return (ft_putendl_fd_2("ambiguous redirect", NULL, 2));
 		if ((!ft_strcmp(token->content, "&&")
 				|| !ft_strcmp(token->content, "&"))
 			&& token->type == WORD)
@@ -84,6 +86,7 @@ void	ft_free(char **str)
 	i = 0;
 	if (str)
 	{
+		printf(">>>>%s\n", str[i]);
 		while (str[i])
 			free(str[i++]);
 		free(str);

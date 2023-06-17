@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meharit <meharit@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaail <yismaail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 17:19:51 by yismaail          #+#    #+#             */
-/*   Updated: 2023/06/09 22:15:48 by meharit          ###   ########.fr       */
+/*   Updated: 2023/06/17 11:17:40 by yismaail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	check_args(int ac, char **av, t_env **dup_env, char **env)
 {
 	(void)av;
-	exec.g_exit_status = 0;
+	g_exec.g_exit_status = 0;
 	if (ac != 1)
 	{
 		ft_putendl_fd("noo we don't do that here", 2);
@@ -43,58 +43,59 @@ void	remove_spaces(t_token **token, t_token *tok)
 	}
 }
 
+void	check_cmd(t_cmd *cmd)
+{
+	char	**substr;
+	char	*temp;
+	int		i;
+	if (cmd->type == WORD && ft_strchr_2(cmd->cmd[0], ' '))
+	{
+		
+		substr = ft_split(cmd->cmd[0], ' ');
+		ft_free(cmd->cmd);
+		i = 0;
+		while(substr[i])
+		// temp = cmd->cmd[0];
+		// cmd->cmd[0] = ft_strdup(substr[0]);
+		// free(temp);
+		// if (substr[1])
+		// {
+		// 	temp = cmd->cmd[1];
+		// 	cmd->cmd[1] = ft_strdup(substr[1]);
+		// 	free(temp);
+		// }
+		// ft_free_tab2(substr);
+		// printf(">>>> %s\n", substr[0]);
+		printf(">>>> %s\n", cmd->cmd[0]);
+		// printf(">>>> %s\n", substr[1]);
+		printf(">>>> %s\n", cmd->cmd[1]);
+	}
+}
+
 void	ft_minishell(t_env **env, t_token **token, t_cmd **cmd)
 {
 	handler_expand(token, *env, *token);
 	remove_spaces(token, *token);
 	if (check_syntax(*token))
+	{
 		parse_cmd(token, cmd);
+		// check_cmd(*cmd);
+	}
 	else
 		ft_lstclear_t(token);
 }
 
-void	sig_int_handler(int s)
-{
-	(void)s;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-void	set_signals(void)
-{
-	signal(SIGQUIT, SIG_IGN);          //ctr-\ //
-	signal(SIGINT, sig_int_handler);   //ctr-c //
-}
-
-int	main(int ac, char **av, char **env)
+void	main_loop(t_token *token, t_env *dup_env, t_cmd *cmd)
 {
 	char	*line;
-	t_token	*token;
-	t_env	*dup_env;
-	t_cmd	*cmd;
-	int		i;
 
-	dup_env = NULL;
-	// minishell_mess();
-	
-	check_args(ac, av, &dup_env, env);
-	
-	// int struct
-	exec = init_exec();
-	exec.env = env;
-	///////
-	
-	set_signals();
 	while (1)
 	{
-		i = 0;
 		token = NULL;
 		cmd = NULL;
-		line = readline(GREEN"minishell> "RESET);
+		line = readline(GREEN "minishell> " RESET);
 		if (!line)
-			exit(exec.g_exit_status);
+			to_exit();
 		if (is_all_spaces(line))
 		{
 			free(line);
@@ -104,22 +105,26 @@ int	main(int ac, char **av, char **env)
 		if (token_line(line, &token))
 		{
 			ft_minishell(&dup_env, &token, &cmd);
-			exec.herdoc_pipe = malloc(sizeof(t_exec) * table_len(cmd));  //
-			get_input(cmd);
+			// get_input(cmd);
 			execute(cmd, &dup_env);
-			// dprintf(2, "i = %d herdoc_per_pipe --> %d\n", i, exec.herdoc_per_pipe);
-			// while (i < exec.herdoc_per_pipe)
-			// {
-			// 	printf("%d = exec.herdoc_per_pipe = %d\n", i, exec.herdoc_per_pipe);
-			// 	free(exec.herdoc_pipe[i]);
-			// 	i++;
-			// }
-			free(exec.herdoc_pipe);
 			clear_cmds(&cmd);
 		}
 		free(line);
 	}
 }
 
-//<< m cat | ls | <<m
-//ls | << m cat | cat
+int	main(int ac, char **av, char **env)
+{
+	t_token	*token;
+	t_env	*dup_env;
+	t_cmd	*cmd;
+
+	dup_env = NULL;
+	// minishell_mess();
+	check_args(ac, av, &dup_env, env);
+	g_exec.g_exit_status = 0;
+	set_signals();
+	token = NULL;
+	cmd = NULL;
+	main_loop(token, dup_env, cmd);
+}
